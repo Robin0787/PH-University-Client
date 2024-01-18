@@ -1,28 +1,28 @@
 import { Layout, Menu, MenuProps } from "antd";
-import { v4 as uuidv4 } from "uuid";
+import { NavLink, Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 
 const items: MenuProps["items"] = [
   {
-    key: uuidv4(),
-    label: "Dashboard",
+    key: "Dashboard",
+    label: <NavLink to={"/admin/dashboard"}>Dashboard</NavLink>,
   },
   {
-    key: uuidv4(),
-    label: "Profile",
-  },
-  {
-    key: uuidv4(),
+    key: "User Management",
     label: "User Management",
     children: [
       {
-        key: uuidv4(),
-        label: "Create Admin",
+        key: "Create Admin",
+        label: <NavLink to={"/admin/create-admin"}>Create Admin</NavLink>,
       },
       {
-        key: uuidv4(),
-        label: "Create Student",
+        key: "Create Faculty",
+        label: <NavLink to={"/admin/create-faculty"}>Create Faculty</NavLink>,
+      },
+      {
+        key: "Create Student",
+        label: <NavLink to={"/admin/create-student"}>Create Student</NavLink>,
       },
     ],
   },
@@ -50,8 +50,7 @@ const MainLayout = () => {
             width: "100%",
             display: "flex",
             justifyContent: "center",
-            justifyItems: "center",
-            border: "1px solid red",
+            alignItems: "center",
           }}
         >
           <h1>PH University</h1>
@@ -73,7 +72,7 @@ const MainLayout = () => {
               minHeight: 360,
             }}
           >
-            content
+            <Outlet />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
