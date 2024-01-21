@@ -5,6 +5,18 @@ const { Header, Content, Footer, Sider } = Layout;
 
 const items: MenuProps["items"] = [
   {
+    key: "Home",
+    label: <NavLink to={"/"}>Home</NavLink>,
+  },
+  {
+    key: "About",
+    label: <NavLink to={"/about"}>About</NavLink>,
+  },
+  {
+    key: "Contact",
+    label: <NavLink to={"/contact"}>Contact</NavLink>,
+  },
+  {
     key: "Dashboard",
     label: <NavLink to={"/admin/dashboard"}>Dashboard</NavLink>,
   },
@@ -40,6 +52,7 @@ const MainLayout = () => {
         onCollapse={(collapsed, type) => {
           console.log(collapsed, type);
         }}
+        style={{ padding: "5px" }}
       >
         <div
           className="demo-logo-vertical"

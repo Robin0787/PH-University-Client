@@ -25,6 +25,7 @@ export const adminPaths = [
     element: <CreateStudent />,
   },
 ];
+
 export const adminPaths2 = [
   {
     name: "Dashboard",
