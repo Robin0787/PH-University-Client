@@ -1,60 +1,13 @@
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
-import { adminSidebarItems } from "../../routes/admin.routes";
+import Sidebar from "./Sidebar";
 
-const { Header, Content, Footer, Sider } = Layout;
-
-// const items: MenuProps["items"] = [
-//   {
-//     key: "Home",
-//     label: <NavLink to={"/"}>Home</NavLink>,
-//   },
-//   {
-//     key: "About",
-//     label: <NavLink to={"/about"}>About</NavLink>,
-//   },
-//   {
-//     key: "Contact",
-//     label: <NavLink to={"/contact"}>Contact</NavLink>,
-//   },
-// ];
+const { Header, Content, Footer } = Layout;
 
 const MainLayout = () => {
   return (
     <Layout style={{ height: "100vh" }}>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-        style={{ padding: "5px" }}
-      >
-        <div
-          className="demo-logo-vertical"
-          style={{
-            color: "white",
-            textAlign: "center",
-            height: "4rem",
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <h1>PH University</h1>
-        </div>
-
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["4"]}
-          items={adminSidebarItems}
-        />
-      </Sider>
+      <Sidebar />
       <Layout>
         <Header style={{ padding: 0 }} />
         <Content style={{ margin: "24px 16px 0" }}>
