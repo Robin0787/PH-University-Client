@@ -23,4 +23,19 @@ export const adminPaths = [
       },
     ],
   },
+  {
+    name: "Course Management",
+    children: [
+      {
+        name: "Create Course",
+        path: "create-course",
+        element: <CreateAdmin />,
+      },
+      {
+        name: "Offer Course",
+        path: "create-faculty",
+        element: <CreateFaculty />,
+      },
+    ],
+  },
 ];
