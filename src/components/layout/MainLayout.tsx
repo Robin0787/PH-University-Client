@@ -1,4 +1,5 @@
 import { Layout } from "antd";
+import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 
@@ -24,6 +25,7 @@ const MainLayout = () => {
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
         </Footer>
       </Layout>
+      <Toaster position="bottom-left" />
     </Layout>
   );
 };

@@ -1,7 +1,7 @@
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Home from "../pages/Home";
-import Login from "../pages/Login";
+import Login from "../pages/login/Login";
 import Register from "../pages/Register";
 
 export const defaultPaths = [

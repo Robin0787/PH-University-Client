@@ -1,4 +1,4 @@
 export type TUserInfo = {
-    email: string;
-    password: string
-}
+  id: string;
+  password: string;
+};
