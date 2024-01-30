@@ -11,8 +11,8 @@
 form {
   width: 90%;
   margin-inline: auto;
-  padding: 20px;
-  border-radius: 6px;
+  padding: 24px;
+  border-radius: 8px;
   background: var(--gradient);
   background-size: 300%;
   background-position: left;
@@ -31,10 +31,10 @@ form {
 form .container {
   background-color: white;
   padding: 30px;
-  border-radius: 5px;
+  border-radius: 6px;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 5px;
   font-size: 1rem;
 }
@@ -64,13 +64,19 @@ form .container div input:focus {
   outline: none;
   border-color: black;
 }
+
 form .container div button {
   width: 100%;
   padding: 15px;
   border-radius: 6px;
-  background: var(--gradient);
+  background: linear-gradient(
+    45deg,
+    rgb(11, 32, 221),
+    rgb(192, 10, 122),
+    rgb(11, 32, 221)
+  );
   background-size: 200%;
-  background-position: center;
+  background-position: left;
   color: white;
   border: none;
   cursor: pointer;
@@ -79,7 +85,7 @@ form .container div button {
 }
 
 form .container div button:hover {
-  background-position: left;
+  background-position: right;
 }
 
 @media screen and (min-width: 640px) {
