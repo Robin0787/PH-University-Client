@@ -22,6 +22,7 @@ form {
   padding: 30px;
   border-radius: 8px;
   background: var(--gradient);
+  color: black;
   background-size: 300%;
   background-position: left;
   animation: bg-animation 10s infinite alternate;

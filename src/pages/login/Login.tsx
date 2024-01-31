@@ -4,19 +4,23 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
+import { setUser } from "../../redux/features/auth/authSlice";
+import { useAppDispatch } from "../../redux/hooks";
 import { TUserInfo } from "../../types/baseApi.types";
+import verifyToken from "../../utils/verifyToken";
 import style from "./login.module.css";
 
 const Login = () => {
-  const [login, { error }] = useLoginMutation();
+  const [login] = useLoginMutation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm({
     defaultValues: {
       id: "A-0001",
       password: "robin123",
     },
   });
-  function handleLogin(data: any) {
+  async function handleLogin(data: any) {
     if (!data.id) {
       toast.error("id is required!");
       return;
@@ -28,18 +32,21 @@ const Login = () => {
       id: data.id,
       password: data.password,
     };
-    login(loginData).then((res: any) => {
-      const token = res?.data?.data?.accessToken;
-      localStorage.setItem("accessToken", token);
+
+    try {
+      const res = await login(loginData).unwrap();
+      const token = res?.data?.accessToken;
       if (token) {
-        toast.success("Login Successful.");
+        const user = verifyToken(token);
+        dispatch(setUser({ user, token: token }));
+
+        // ------------------------ //
+        toast.success(res?.message);
         navigate("/");
       }
-    });
-  }
-  if (error) {
-    console.log(error);
-    toast.error(error?.data?.message || "Something went wrong!");
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Something went wrong!");
+    }
   }
   return (
     <section className={style.mainContainer}>

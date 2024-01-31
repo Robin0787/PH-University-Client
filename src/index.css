@@ -4,8 +4,36 @@
   box-sizing: border-box;
 }
 
+.sidebar-bg {
+  background: linear-gradient(
+    90deg,
+    rgb(51, 6, 156),
+    rgb(43, 4, 136)
+  ) !important;
+  color: white;
+  padding: 5px;
+}
+
 .content-bg {
+  --gradient: linear-gradient(
+    90deg,
+    rgba(51, 6, 156, 0.9),
+    rgb(43, 4, 136, 0.9)
+  );
+  color: white;
   height: 100%;
   padding: 24px 16px 0;
-  background: linear-gradient(45deg, rgb(89, 19, 180), rgb(7, 142, 184));
+  background: var(--gradient);
+  background-size: 300%;
+  background-position: left;
+  animation: bg-animation 10s infinite alternate;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
 }

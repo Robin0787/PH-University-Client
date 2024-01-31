@@ -38,7 +38,12 @@ const Sidebar = () => {
   }
 
   return (
-    <Sider breakpoint="lg" collapsedWidth="0" style={{ padding: "5px" }}>
+    <Sider
+      breakpoint="lg"
+      collapsedWidth="0"
+      className="sidebar-bg"
+      width={220}
+    >
       <div
         className="demo-logo-vertical"
         style={{
@@ -55,7 +60,7 @@ const Sidebar = () => {
       </div>
 
       <Menu
-        theme="dark"
+        style={{ backgroundColor: "transparent", color: "white" }}
         mode="inline"
         defaultSelectedKeys={["4"]}
         items={sidebarItems}
