@@ -3,7 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 const MainLayout = () => {
   return (
@@ -11,19 +11,12 @@ const MainLayout = () => {
       <Sidebar />
       <Layout>
         <Header style={{ padding: 0 }} />
-        <Content style={{ margin: "24px 16px 0" }}>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-            }}
-          >
-            <Outlet />
-          </div>
+        <Content className="content-bg">
+          <Outlet />
         </Content>
-        <Footer style={{ textAlign: "center" }}>
+        {/* <Footer style={{ textAlign: "center" }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
+        </Footer> */}
       </Layout>
       <Toaster position="bottom-left" />
     </Layout>

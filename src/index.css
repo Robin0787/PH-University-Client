@@ -3,3 +3,9 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+.content-bg {
+  height: 100%;
+  padding: 24px 16px 0;
+  background: linear-gradient(45deg, rgb(89, 19, 180), rgb(7, 142, 184));
+}

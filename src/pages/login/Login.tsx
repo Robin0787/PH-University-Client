@@ -39,26 +39,28 @@ const Login = () => {
   }
   if (error) {
     console.log(error);
-    toast.error(error?.data?.message);
+    toast.error(error?.data?.message || "Something went wrong!");
   }
   return (
-    <form onSubmit={handleSubmit(handleLogin)}>
-      <div className={style.container}>
-        <div>
-          <label htmlFor="id">ID</label>
-          <span>:</span>
-          <input type="text" id="id" {...register("id")} />
+    <section className={style.mainContainer}>
+      <form onSubmit={handleSubmit(handleLogin)}>
+        <div className={style.container}>
+          <div>
+            <label htmlFor="id">ID</label>
+            <span>:</span>
+            <input type="text" id="id" {...register("id")} />
+          </div>
+          <div>
+            <label htmlFor="Password">Password</label>
+            <span>:</span>
+            <input type="password" id="password" {...register("password")} />
+          </div>
+          <div>
+            <button type="submit">Login</button>
+          </div>
         </div>
-        <div>
-          <label htmlFor="Password">Password</label>
-          <span>:</span>
-          <input type="password" id="password" {...register("password")} />
-        </div>
-        <div>
-          <button type="submit">Login</button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </section>
   );
 };
 
