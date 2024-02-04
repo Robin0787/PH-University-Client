@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Login from "../pages/login/Login";
-import Register from "../pages/register/Register";
+import ProtectedRoute from "../components/layout/ProtectedRoute";
 import { routesGenerator } from "../utils/routesGenerator";
 import { adminPaths } from "./admin.routes";
 import { defaultPaths } from "./default.routes";
@@ -16,26 +15,30 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <App />,
+    element: (
+      <ProtectedRoute>
+        <App />
+      </ProtectedRoute>
+    ),
     children: routesGenerator(adminPaths),
   },
   {
     path: "/faculty",
-    element: <App />,
+    element: (
+      <ProtectedRoute>
+        <App />
+      </ProtectedRoute>
+    ),
     children: routesGenerator(facultyPaths),
   },
   {
     path: "/student",
-    element: <App />,
+    element: (
+      <ProtectedRoute>
+        <App />
+      </ProtectedRoute>
+    ),
     children: routesGenerator(studentPaths),
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
   },
 ]);
 
