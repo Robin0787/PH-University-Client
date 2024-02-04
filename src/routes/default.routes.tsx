@@ -1,6 +1,6 @@
-import About from "../pages/About";
-import Contact from "../pages/Contact";
-import Home from "../pages/Home";
+import About from "../pages/about/About";
+import Contact from "../pages/contact/Contact";
+import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 
