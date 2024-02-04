@@ -38,6 +38,28 @@
   }
 }
 
+.gradient-button {
+  padding: 10px 25px;
+  border-radius: 4px;
+  background: linear-gradient(
+    45deg,
+    rgb(11, 32, 221),
+    rgb(192, 10, 122),
+    rgb(11, 32, 221)
+  );
+  font-size: small;
+  background-size: 200%;
+  background-position: left;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-position 0.8s ease;
+}
+
+.gradient-button {
+  background-position: right;
+}
+
 /*  Utility Classes styles */
 .flex-center {
   display: flex;

@@ -44,7 +44,7 @@ const Login = () => {
 
         // ------------------------ //
         toast.success(res?.message);
-        navigate("/");
+        navigate(`/${user.role}/dashboard`);
       }
     } catch (err: any) {
       toast.error(err?.data?.message || "Something went wrong!");

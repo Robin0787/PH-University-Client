@@ -1,6 +1,9 @@
 import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
+import toast from "react-hot-toast";
 import { USER_ROLE } from "../../constant/user.roles";
+import { logOut } from "../../redux/features/auth/authSlice";
+import { useAppDispatch } from "../../redux/hooks";
 import { adminPaths } from "../../routes/admin.routes";
 import { defaultPaths } from "../../routes/default.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
@@ -37,6 +40,12 @@ const Sidebar = () => {
       break;
   }
 
+  const dispatch = useAppDispatch();
+  const handleLogOut = () => {
+    dispatch(logOut());
+    toast.success("Logged out successfully");
+  };
+
   return (
     <Sider
       breakpoint="lg"
@@ -65,6 +74,13 @@ const Sidebar = () => {
         defaultSelectedKeys={["4"]}
         items={sidebarItems}
       />
+      <button
+        onClick={handleLogOut}
+        className="gradient-button"
+        style={{ marginLeft: "25px", marginTop: "10px" }}
+      >
+        Log Out
+      </button>
     </Sider>
   );
 };
