@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Register from "../pages/Register";
 import Login from "../pages/login/Login";
+import Register from "../pages/register/Register";
 import { routesGenerator } from "../utils/routesGenerator";
 import { adminPaths } from "./admin.routes";
 import { defaultPaths } from "./default.routes";

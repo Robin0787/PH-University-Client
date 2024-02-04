@@ -15,7 +15,7 @@
 }
 
 .content-bg {
-  --gradient: linear-gradient(
+  --content-bg-gradient: linear-gradient(
     90deg,
     rgba(51, 6, 156, 0.9),
     rgb(43, 4, 136, 0.9)
@@ -23,7 +23,7 @@
   color: white;
   height: 100%;
   padding: 24px 16px 0;
-  background: var(--gradient);
+  background: var(--content-bg-gradient);
   background-size: 300%;
   background-position: left;
   animation: bg-animation 10s infinite alternate;
@@ -36,4 +36,18 @@
   100% {
     background-position: right;
   }
+}
+
+/*  Utility Classes styles */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.h-full {
+  height: 100%;
+}
+.w-full {
+  width: 100%;
 }

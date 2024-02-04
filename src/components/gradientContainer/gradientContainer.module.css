@@ -1,0 +1,24 @@
+.gradientContainer {
+  --gradient-bg: linear-gradient(
+    45deg,
+    rgb(11, 32, 221),
+    rgb(216, 9, 137),
+    rgb(214, 214, 14),
+    rgb(230, 14, 115)
+  );
+  width: 100%;
+  margin-inline: auto;
+  padding: 30px;
+  border-radius: 8px;
+  background: var(--gradient-bg);
+  color: black;
+  background-size: 300%;
+  background-position: left;
+  animation: bg-animation 10s infinite alternate;
+}
+
+.container {
+  background-color: white;
+  padding: 50px 40px;
+  border-radius: 6px;
+}

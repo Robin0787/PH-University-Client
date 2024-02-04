@@ -36,6 +36,12 @@
   transition: 0.3s ease;
 }
 
+.form .container div input::placeholder {
+  color: #4e4e4e;
+  font-size: small;
+  letter-spacing: 1px;
+}
+
 .form .container div input:focus {
   outline: none;
   border-color: black;
