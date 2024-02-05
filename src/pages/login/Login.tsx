@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import GradientContainer from "../../components/gradientContainer/gradientContainer";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
-import { setUser } from "../../redux/features/auth/authSlice";
+import { TUser, setUser } from "../../redux/features/auth/authSlice";
 import { useAppDispatch } from "../../redux/hooks";
 import { TUserInfo } from "../../types/baseApi.types";
 import verifyToken from "../../utils/verifyToken";
@@ -39,12 +39,11 @@ const Login = () => {
       const res = await login(loginData).unwrap();
       const token = res?.data?.accessToken;
       if (token) {
-        const user = verifyToken(token);
+        const user: TUser = verifyToken<TUser>(token);
         dispatch(setUser({ user, token: token }));
-
         // ------------------------ //
+        navigate(`/${user?.role}`);
         toast.success(res?.message);
-        navigate(`/${user.role}/dashboard`);
       }
     } catch (err: any) {
       toast.error(err?.data?.message || "Something went wrong!");

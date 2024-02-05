@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 
-const verifyToken = (token: string) => {
-  const decoded = jwtDecode(token);
+const verifyToken = <T>(token: string): T => {
+  const decoded: T = jwtDecode(token);
   return decoded;
 };
 
