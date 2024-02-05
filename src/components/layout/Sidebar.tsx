@@ -2,7 +2,11 @@ import { Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import toast from "react-hot-toast";
 import { USER_ROLE } from "../../constant/user.roles";
-import { logOut } from "../../redux/features/auth/authSlice";
+import {
+  logOut,
+  selectCurrentToken,
+  selectCurrentUser,
+} from "../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { adminPaths } from "../../routes/admin.routes";
 import { defaultPaths } from "../../routes/default.routes";
@@ -14,10 +18,9 @@ import sidebarItemsGenerator from "../../utils/sidebarItemsGenerator";
 
 const Sidebar = () => {
   const sidebarItems: TSidebarItem[] = [...sidebarItemsGenerator(defaultPaths)];
-  const role: TUserRole | undefined = useAppSelector((state) => state.auth)
-    ?.user?.role;
-  const userRole = useAppSelector((state) => state.auth);
-  const isLoggedIn: boolean = !!userRole.token;
+  const role: TUserRole | undefined = useAppSelector(selectCurrentUser)?.role;
+  const token = useAppSelector(selectCurrentToken);
+  const isLoggedIn: boolean = !!token;
 
   switch (role) {
     case USER_ROLE.ADMIN:

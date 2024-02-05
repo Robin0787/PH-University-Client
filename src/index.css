@@ -5,11 +5,24 @@
 }
 
 .sidebar-bg {
-  background: linear-gradient(
-    90deg,
-    rgb(51, 6, 156),
-    rgb(43, 4, 136)
-  ) !important;
+  height: 100vh;
+  overflow-y: scroll;
+}
+.sidebar-bg::-webkit-scrollbar {
+  background: linear-gradient(0deg, #33069c, #2b0488);
+  width: 10px;
+}
+.sidebar-bg::-webkit-scrollbar-track {
+  background: linear-gradient(0deg, #33069c, #2b0488);
+}
+.sidebar-bg::-webkit-scrollbar-thumb {
+  background-color: rgba(235, 17, 137, 0.685);
+  color: white;
+  border-radius: 10px;
+}
+
+.sidebar-bg {
+  background: linear-gradient(90deg, #33069c, #2b0488) !important;
   color: white;
   padding: 5px;
 }
