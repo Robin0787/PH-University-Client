@@ -1,6 +1,12 @@
 import CreateStudent from "../pages/admin/CreateStudent";
+import StudentDashboard from "../pages/student/StudentDashboard";
 
 export const studentPaths = [
+  {
+    name: "Dashboard",
+    path: "*",
+    element: <StudentDashboard />,
+  },
   {
     name: "User Management",
     children: [

@@ -5,8 +5,9 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import GradientContainer from "../../components/gradientContainer/gradientContainer";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
-import { TUser, setUser } from "../../redux/features/auth/authSlice";
+import { setUser } from "../../redux/features/auth/authSlice";
 import { useAppDispatch } from "../../redux/hooks";
+import { TUser } from "../../types/authSlice";
 import { TUserInfo } from "../../types/baseApi.types";
 import verifyToken from "../../utils/verifyToken";
 import style from "./login.module.css";
@@ -30,6 +31,7 @@ const Login = () => {
       toast.error("password is required!");
       return;
     }
+    const toastId: string = toast.loading("User is logging...");
     const loginData: TUserInfo = {
       id: data.id,
       password: data.password,
@@ -42,13 +44,14 @@ const Login = () => {
         const user: TUser = verifyToken<TUser>(token);
         dispatch(setUser({ user, token: token }));
         // ------------------------ //
-        navigate(`/${user?.role}`);
-        toast.success(res?.message);
+        navigate(`/${user?.role}/dashboard`);
+        toast.success(res?.message, { id: toastId });
       }
     } catch (err: any) {
       toast.error(err?.data?.message || "Something went wrong!");
     }
   }
+
   return (
     <section className={style.main}>
       <GradientContainer>
