@@ -4,18 +4,25 @@
   box-sizing: border-box;
 }
 
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 .sidebar-bg {
   height: 100vh;
   overflow-y: scroll;
 }
-.sidebar-bg::-webkit-scrollbar {
+*::-webkit-scrollbar {
   background: linear-gradient(0deg, #33069c, #2b0488);
   width: 10px;
 }
-.sidebar-bg::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: linear-gradient(0deg, #33069c, #2b0488);
 }
-.sidebar-bg::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: rgba(235, 17, 137, 0.685);
   color: white;
   border-radius: 10px;
