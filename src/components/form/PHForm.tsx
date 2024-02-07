@@ -9,17 +9,19 @@ import {
 interface TPHFormProps {
   onSubmit: SubmitHandler<FieldValues>;
   children: ReactNode;
+  defaultValues?: object;
 }
 
-const PHForm = ({ onSubmit, children }: TPHFormProps) => {
-  const methods = useForm({
-    defaultValues: {
-      id: "A-0001",
-      password: "robin123",
-      name: "Robin",
-      email: "mohammadrobin636@gmail.com",
-    },
-  });
+interface TFormConfig {
+  defaultValues?: Record<string, any>;
+}
+
+const PHForm = ({ onSubmit, children, defaultValues }: TPHFormProps) => {
+  const formConfig: TFormConfig = {};
+  if (defaultValues) {
+    formConfig["defaultValues"] = defaultValues;
+  }
+  const methods = useForm(formConfig);
 
   return (
     <FormProvider {...methods}>

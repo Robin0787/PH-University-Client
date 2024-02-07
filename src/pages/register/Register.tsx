@@ -4,6 +4,16 @@ import PHForm from "../../components/form/PHForm";
 import GradientContainer from "../../components/gradientContainer/gradientContainer";
 import styles from "./register.module.css";
 
+interface TDefaultValues {
+  name: string;
+  email: string;
+}
+
+const defaultValues: TDefaultValues = {
+  name: "Robin",
+  email: "mohammadrobin636@gmail.com",
+};
+
 const Register = () => {
   function handleRegister(data: any) {
     console.log(data);
@@ -11,7 +21,7 @@ const Register = () => {
 
   return (
     <div className={styles.main}>
-      <PHForm onSubmit={handleRegister}>
+      <PHForm onSubmit={handleRegister} defaultValues={defaultValues}>
         <GradientContainer>
           <div className={styles.form}>
             <div className={styles.container}>

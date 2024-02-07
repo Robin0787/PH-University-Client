@@ -13,6 +13,16 @@ import { TUserInfo } from "../../types/baseApi.types";
 import verifyToken from "../../utils/verifyToken";
 import style from "./login.module.css";
 
+interface TDefaultValues {
+  id: string;
+  password: string;
+}
+
+const defaultValues: TDefaultValues = {
+  id: "A-0001",
+  password: "robin123",
+};
+
 const Login = () => {
   const [login] = useLoginMutation();
   const navigate = useNavigate();
@@ -49,7 +59,7 @@ const Login = () => {
 
   return (
     <section className={style.main}>
-      <PHForm onSubmit={handleLogin}>
+      <PHForm onSubmit={handleLogin} defaultValues={defaultValues}>
         <GradientContainer>
           <div className={style.form}>
             <div className={style.container}>
