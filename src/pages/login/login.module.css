@@ -27,20 +27,6 @@
   font-size: 1rem;
 }
 
-.form .container div input {
-  width: 85%;
-  font-size: 1rem;
-  padding: 10px 6px;
-  border-radius: 6px;
-  border: 1px solid gray;
-  transition: 0.3s ease;
-}
-
-.form .container div input:focus {
-  outline: none;
-  border-color: black;
-}
-
 .form .container div button {
   width: 100%;
   padding: 15px;

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import FormInput from "../../components/form/FormInput";
+import PHForm from "../../components/form/PHForm";
 import GradientContainer from "../../components/gradientContainer/gradientContainer";
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { setUser } from "../../redux/features/auth/authSlice";
@@ -16,12 +17,6 @@ const Login = () => {
   const [login] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      id: "A-0001",
-      password: "robin123",
-    },
-  });
 
   async function handleLogin(data: any) {
     if (!data.id) {
@@ -54,25 +49,27 @@ const Login = () => {
 
   return (
     <section className={style.main}>
-      <GradientContainer>
-        <form onSubmit={handleSubmit(handleLogin)} className={style.form}>
-          <div className={style.container}>
-            <div>
-              <label htmlFor="id">ID</label>
-              <span>:</span>
-              <input type="text" id="id" {...register("id")} />
-            </div>
-            <div>
-              <label htmlFor="Password">Password</label>
-              <span>:</span>
-              <input type="password" id="password" {...register("password")} />
-            </div>
-            <div>
-              <button type="submit">Login</button>
+      <PHForm onSubmit={handleLogin}>
+        <GradientContainer>
+          <div className={style.form}>
+            <div className={style.container}>
+              <div>
+                <label htmlFor="id">ID</label>
+                <span>:</span>
+                <FormInput type="text" name="id" />
+              </div>
+              <div>
+                <label htmlFor="Password">Password</label>
+                <span>:</span>
+                <FormInput type="text" name="password" />
+              </div>
+              <div>
+                <button type="submit">Login</button>
+              </div>
             </div>
           </div>
-        </form>
-      </GradientContainer>
+        </GradientContainer>
+      </PHForm>
     </section>
   );
 };
