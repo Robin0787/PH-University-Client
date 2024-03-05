@@ -9,6 +9,18 @@ body {
   width: 100vw;
   overflow-x: hidden;
   overflow-y: scroll;
+  background-color: #3202a1;
+}
+
+.mainLayout {
+  width: 100%;
+}
+
+@media screen and (width > 1800px) {
+  .mainLayout {
+    width: 1800px;
+    margin-inline: auto;
+  }
 }
 
 .sidebar-bg {
@@ -88,8 +100,14 @@ body {
   font-size: 1rem;
   padding: 7px 6px;
   border-radius: 6px;
-  border: 1px solid gray;
+  border: 1px solid rgb(230, 230, 230);
   transition: 0.3s ease;
+  margin-bottom: -20px;
+  outline: none;
+}
+
+.input:hover {
+  border: 1px solid rgb(197, 197, 197);
 }
 
 .input::placeholder {
@@ -100,7 +118,17 @@ body {
 
 .input:focus {
   outline: none;
-  border-color: black;
+  border-color: rgb(43, 43, 43);
+}
+
+.input:disabled {
+  background-color: white;
+  color: rgb(124, 124, 124);
+  cursor: not-allowed;
+  border: 1px solid rgb(230, 230, 230);
+}
+.input:disabled:hover {
+  border: 1px solid rgb(230, 230, 230);
 }
 
 /*  Utility Classes styles */
@@ -141,22 +169,10 @@ body {
   font-size: 1rem;
 }
 
-.form .container div {
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-}
-.form .container div label {
-  width: 15%;
-  font-size: 1rem;
-  text-wrap: nowrap;
-}
-
 .submitBtn {
   width: 100%;
   padding: 15px;
+  margin-top: 10px;
   border-radius: 6px;
   background: linear-gradient(
     45deg,

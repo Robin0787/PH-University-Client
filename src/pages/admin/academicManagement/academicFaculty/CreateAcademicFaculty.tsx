@@ -18,8 +18,8 @@ const CreateAcademicFaculty = () => {
                 <h3 className="heading">Create Academic Faculty</h3>
                 <div>
                   <PHSelect label="Name" />
-                  <FormInput type="number" name="Year" />
-                  <FormInput type="text" name="Code" />
+                  <FormInput type="number" name="year" label="Year" />
+                  <FormInput type="text" name="Code" label="Code" />
                   <div>
                     <button type="submit" className="submitBtn">
                       Create

@@ -7,7 +7,7 @@ const { Content } = Layout;
 
 const MainLayout = () => {
   return (
-    <Layout style={{ height: "100vh" }}>
+    <Layout style={{ height: "100vh" }} className="mainLayout">
       <Sidebar />
       <Layout>
         <Content className="content-bg">

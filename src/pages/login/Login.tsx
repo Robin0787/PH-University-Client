@@ -11,7 +11,6 @@ import { useAppDispatch } from "../../redux/hooks";
 import { TUser } from "../../types/authSlice";
 import { TUserInfo } from "../../types/baseApi.types";
 import verifyToken from "../../utils/verifyToken";
-import styles from "./login.module.css";
 
 interface TDefaultValues {
   id: string;
@@ -60,24 +59,18 @@ const Login = () => {
   }
 
   return (
-    <section className={styles.main}>
+    <section className="main">
       <PHForm onSubmit={handleLogin} defaultValues={defaultValues}>
         <GradientContainer>
-          <div className={styles.form}>
-            <div className={styles.heading}>Login</div>
-            <div className={styles.container}>
+          <div className="form">
+            <div className="heading">Login</div>
+            <div>
+              <FormInput type="text" name="id" label="ID" />
+              <FormInput type="text" name="password" label="Password" />
               <div>
-                <label htmlFor="id">ID</label>
-                <span>:</span>
-                <FormInput type="text" name="id" />
-              </div>
-              <div>
-                <label htmlFor="Password">Password</label>
-                <span>:</span>
-                <FormInput type="text" name="password" />
-              </div>
-              <div>
-                <button type="submit">Login</button>
+                <button type="submit" className="submitBtn">
+                  Login
+                </button>
               </div>
             </div>
           </div>

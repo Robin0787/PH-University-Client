@@ -1,21 +1,30 @@
 import { Form, Select } from "antd";
+import { BaseOptionType } from "antd/es/select";
 
-const PHSelect = ({ label }: { label: string }) => {
+interface TPHSelectProps {
+  label: string;
+  defaultValue: string;
+  options: BaseOptionType[];
+  setSelect: (selected: string) => void;
+}
+
+const PHSelect = ({
+  label,
+  defaultValue,
+  options,
+  setSelect,
+}: TPHSelectProps) => {
   return (
     <div>
       <p style={{ fontSize: "16px", marginBottom: "5px" }}>{label}</p>
       <Form.Item>
         <Select
-          defaultValue="lucy"
-          style={{ width: "100%" }}
+          defaultValue={defaultValue}
+          style={{ width: "100%", height: "40px" }}
           onChange={(value) => {
-            console.log(value);
+            setSelect(value);
           }}
-          options={[
-            { value: "jack", label: "Jack" },
-            { value: "lucy", label: "Lucy" },
-            { value: "disabled", label: "Disabled", disabled: true },
-          ]}
+          options={options}
         />
       </Form.Item>
     </div>
