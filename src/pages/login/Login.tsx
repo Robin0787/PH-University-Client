@@ -11,7 +11,7 @@ import { useAppDispatch } from "../../redux/hooks";
 import { TUser } from "../../types/authSlice";
 import { TUserInfo } from "../../types/baseApi.types";
 import verifyToken from "../../utils/verifyToken";
-import style from "./login.module.css";
+import styles from "./login.module.css";
 
 interface TDefaultValues {
   id: string;
@@ -53,16 +53,19 @@ const Login = () => {
         toast.success(res?.message, { id: toastId });
       }
     } catch (err: any) {
-      toast.error(err?.data?.message || "Something went wrong!");
+      toast.error(err?.data?.message || "Something went wrong!", {
+        id: toastId,
+      });
     }
   }
 
   return (
-    <section className={style.main}>
+    <section className={styles.main}>
       <PHForm onSubmit={handleLogin} defaultValues={defaultValues}>
         <GradientContainer>
-          <div className={style.form}>
-            <div className={style.container}>
+          <div className={styles.form}>
+            <div className={styles.heading}>Login</div>
+            <div className={styles.container}>
               <div>
                 <label htmlFor="id">ID</label>
                 <span>:</span>

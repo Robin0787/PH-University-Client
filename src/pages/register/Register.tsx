@@ -24,6 +24,7 @@ const Register = () => {
       <PHForm onSubmit={handleRegister} defaultValues={defaultValues}>
         <GradientContainer>
           <div className={styles.form}>
+            <div className={styles.heading}>Register</div>
             <div className={styles.container}>
               <div>
                 <label htmlFor="id">Name</label>

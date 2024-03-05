@@ -1,3 +1,4 @@
+import { Form } from "antd";
 import { ReactNode } from "react";
 import {
   FieldValues,
@@ -25,12 +26,12 @@ const PHForm = ({ onSubmit, children, defaultValues }: TPHFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form
-        onSubmit={methods.handleSubmit(onSubmit)}
+      <Form
+        onFinish={methods.handleSubmit(onSubmit)}
         style={{ width: "100%", height: "100%" }}
       >
         {children}
-      </form>
+      </Form>
     </FormProvider>
   );
 };
