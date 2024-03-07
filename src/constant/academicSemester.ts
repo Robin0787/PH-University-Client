@@ -1,3 +1,5 @@
+import { BaseOptionType } from "antd/es/select";
+
 export const AcademicSemesterNames: string[] = [
   "Autumn",
   "Summer",
@@ -9,3 +11,9 @@ export const ACADEMIC_SEMESTER_NAMES_OBJ = {
   Summer: "Summer",
   Fall: "Fall",
 } as const;
+
+export const semesterNamesForSelect: BaseOptionType[] =
+  AcademicSemesterNames.map((item: string) => ({
+    value: item,
+    label: item,
+  }));

@@ -11,16 +11,26 @@ interface TPHFormProps {
   onSubmit: SubmitHandler<FieldValues>;
   children: ReactNode;
   defaultValues?: object;
+  resolver?: any;
 }
 
 interface TFormConfig {
   defaultValues?: Record<string, any>;
+  resolver?: any;
 }
 
-const PHForm = ({ onSubmit, children, defaultValues }: TPHFormProps) => {
+const PHForm = ({
+  onSubmit,
+  children,
+  defaultValues,
+  resolver,
+}: TPHFormProps) => {
   const formConfig: TFormConfig = {};
   if (defaultValues) {
     formConfig["defaultValues"] = defaultValues;
+  }
+  if (resolver) {
+    formConfig["resolver"] = resolver;
   }
   const methods = useForm(formConfig);
 

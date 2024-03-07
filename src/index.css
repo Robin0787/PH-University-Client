@@ -23,8 +23,11 @@ body {
   }
 }
 
-.sidebar-bg {
+.sidebar {
   height: 100vh;
+  position: sticky;
+  top: 0;
+  left: 0;
   overflow-y: scroll;
 }
 *::-webkit-scrollbar {
@@ -40,7 +43,7 @@ body {
   border-radius: 10px;
 }
 
-.sidebar-bg {
+.sidebar {
   background: linear-gradient(90deg, #33069c, #2b0488) !important;
   color: white;
   padding: 5px;
@@ -129,6 +132,14 @@ body {
 }
 .input:disabled:hover {
   border: 1px solid rgb(230, 230, 230);
+}
+
+.errorMessage {
+  color: red;
+  letter-spacing: 0.5px;
+  position: absolute;
+  top: -25px;
+  right: 0;
 }
 
 /*  Utility Classes styles */

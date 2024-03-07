@@ -47,7 +47,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     }
 
     result = await baseQuery(args, api, extraOptions);
-    console.clear();
+    // console.clear();
   }
   return result;
 };
