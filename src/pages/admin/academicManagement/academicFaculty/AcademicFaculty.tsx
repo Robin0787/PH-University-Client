@@ -1,10 +1,13 @@
-import { Button, Table, TableColumnsType, TableProps } from "antd";
+import { Button, Flex, Table, TableColumnsType, TableProps } from "antd";
 import { Key } from "react";
 import GradientContainer from "../../../../components/gradientContainer/gradientContainer";
 import { useGetAllFacultyQuery } from "../../../../redux/features/admin/academicManagement.api";
-import { TAcademicFaculty } from "../../../../types/academicManagement.types";
 
-export type TTableData = Pick<TAcademicFaculty, "_id" | "name">;
+export type TTableData = {
+  key: string;
+  _id: string;
+  name: string;
+};
 
 export type TQueryParam = {
   name: string;
@@ -17,7 +20,7 @@ const columns: TableColumnsType<TTableData> = [
     dataIndex: "",
   },
   {
-    title: "Name",
+    title: <p className="tableHeading">Name</p>,
     dataIndex: "name",
   },
   {
@@ -25,19 +28,20 @@ const columns: TableColumnsType<TTableData> = [
     dataIndex: "",
   },
   {
-    title: "Edit Faculty",
-    render: () => <Button>Edit</Button>,
-  },
-  {
-    title: "Delete Faculty",
-    render: () => <Button>Delete</Button>,
+    title: <p className="tableHeading">Action</p>,
+    render: () => (
+      <Flex justify="center" align="center" gap={20}>
+        <Button>Edit</Button>
+        <Button>Delete</Button>
+      </Flex>
+    ),
+    align: "center",
   },
 ];
 
 const AcademicFaculty = () => {
   const { data, isLoading } = useGetAllFacultyQuery(undefined);
   const academicFaculties = data?.data;
-  console.log(academicFaculties);
 
   const tableData = academicFaculties?.map(({ _id, name }) => ({
     key: _id,

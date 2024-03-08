@@ -31,10 +31,10 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   extraOptions: object
 ): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
-  if (result?.error?.status === 401) {
+  if (result?.error?.status === 500) {
     console.log("Refreshing access token...");
     // Send refresh token to get new access token
-    const res = await fetch("http://localhost:9000/api/v1/auth/refresh-token", {
+    const res = await fetch("http://localhost:8080/api/v1/auth/refresh-token", {
       method: "POST",
       credentials: "include",
     });

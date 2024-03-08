@@ -1,6 +1,6 @@
 // import { LoaderIcon } from "react-hot-toast";
 import type { TableColumnsType, TableProps } from "antd";
-import { Table } from "antd";
+import { Button, Flex, Table } from "antd";
 import { Key, useState } from "react";
 import GradientContainer from "../../../../components/gradientContainer/gradientContainer";
 import { MonthsArray } from "../../../../constant/global";
@@ -20,7 +20,7 @@ export type TQueryParam = {
 
 const columns: TableColumnsType<TTableData> = [
   {
-    title: "Name",
+    title: <p className="tableHeading">Name</p>,
     dataIndex: "name",
     filters: [
       {
@@ -38,7 +38,7 @@ const columns: TableColumnsType<TTableData> = [
     ],
   },
   {
-    title: "Year",
+    title: <p className="tableHeading">Year</p>,
     dataIndex: "year",
     defaultSortOrder: "ascend",
     sorter: (a, b) => Number(a.year) - Number(b.year),
@@ -50,7 +50,7 @@ const columns: TableColumnsType<TTableData> = [
     }),
   },
   {
-    title: "Start Month",
+    title: <p className="tableHeading">Start Month</p>,
     dataIndex: "startMonth",
     filters: MonthsArray.map((month) => {
       return {
@@ -60,7 +60,7 @@ const columns: TableColumnsType<TTableData> = [
     }),
   },
   {
-    title: "End Month",
+    title: <p className="tableHeading">End Month</p>,
     dataIndex: "endMonth",
     filters: MonthsArray.map((month) => {
       return {
@@ -68,6 +68,16 @@ const columns: TableColumnsType<TTableData> = [
         value: month,
       };
     }),
+  },
+  {
+    title: <p className="tableHeading">Action</p>,
+    render: () => (
+      <Flex justify="center" align="center" gap={20}>
+        <Button>Edit</Button>
+        <Button>Delete</Button>
+      </Flex>
+    ),
+    align: "center",
   },
 ];
 

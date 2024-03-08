@@ -32,7 +32,7 @@ const CreateAcademicSemester = () => {
         toast.success(res.message || "Semester is created successfully", {
           id: toastId,
         });
-        navigate("/admin/academic-semester");
+        navigate("/admin/academic-semesters");
       }
     } catch (error: any) {
       const errorSources = error?.data?.errorSources;

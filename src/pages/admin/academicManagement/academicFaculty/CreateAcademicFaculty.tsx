@@ -26,7 +26,7 @@ const CreateAcademicFaculty = () => {
         toast.success(res.message || "Faculty is created successfully", {
           id: toastId,
         });
-        navigate("/admin/academic-faculty");
+        navigate("/admin/academic-faculties");
       }
     } catch (error: any) {
       const errorSources = error?.data?.errorSources;

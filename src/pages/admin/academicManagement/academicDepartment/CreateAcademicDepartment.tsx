@@ -43,7 +43,7 @@ const CreateAcademicDepartment = () => {
         toast.success(res.message || "Department is created successfully", {
           id: toastId,
         });
-        navigate("/admin/academic-department");
+        navigate("/admin/academic-departments");
       }
     } catch (error: any) {
       const errorSources = error?.data?.errorSources;
@@ -71,6 +71,7 @@ const CreateAcademicDepartment = () => {
                 <div>
                   <FormInput type="text" name="name" label="Department Name" />
                   <PHSelect
+                    placeholder="Select Academic Faculty"
                     name="academicFaculty"
                     label="Academic Faculty"
                     options={facultyOptions}

@@ -38,8 +38,8 @@ body {
   background: linear-gradient(0deg, #33069c, #2b0488);
 }
 *::-webkit-scrollbar-thumb {
-  background-color: rgba(235, 17, 137, 0.685);
-  color: white;
+  background-color: rgba(137, 137, 145, 0.685);
+  color: rgba(255, 255, 255, 0.623);
   border-radius: 10px;
 }
 
@@ -140,6 +140,11 @@ body {
   position: absolute;
   top: -25px;
   right: 0;
+}
+
+.tableHeading {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 /*  Utility Classes styles */
