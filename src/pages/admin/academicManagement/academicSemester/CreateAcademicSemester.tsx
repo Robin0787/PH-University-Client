@@ -8,6 +8,7 @@ import { semesterNamesForSelect } from "../../../../constant/academicSemester";
 import { monthListForSelect } from "../../../../constant/global";
 import { useCreateAcademicSemesterMutation } from "../../../../redux/features/admin/academicManagement.api";
 import { academicSemesterSchema } from "../../../../schemas/AcademicManagement.schema";
+import { TAcademicSemester } from "../../../../types/academicManagement.types";
 import { TIssue, TResponse } from "../../../../types/global.types";
 import {
   getSemesterCodeBasedOnSemesterName,
@@ -24,7 +25,9 @@ const CreateAcademicSemester = () => {
     data.code = semesterCode;
 
     try {
-      const res: TResponse = await createAcademicSemester(data).unwrap();
+      const res: TResponse<TAcademicSemester> = await createAcademicSemester(
+        data
+      ).unwrap();
       if (res.success) {
         toast.success(res.message || "Semester is created successfully", {
           id: toastId,

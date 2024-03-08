@@ -40,7 +40,7 @@ const columns: TableColumnsType<TTableData> = [
   {
     title: "Year",
     dataIndex: "year",
-    defaultSortOrder: "descend",
+    defaultSortOrder: "ascend",
     sorter: (a, b) => Number(a.year) - Number(b.year),
     filters: getFiveYears().map((year) => {
       return {

@@ -25,7 +25,7 @@ const FormInput = ({
       <p style={{ fontSize: "16px", marginBottom: "5px" }}>{label}</p>
       <Controller
         name={name}
-        render={({ field }) => (
+        render={({ field, fieldState: { error } }) => (
           <Form.Item>
             <Input
               {...field}
@@ -36,6 +36,7 @@ const FormInput = ({
               placeholder={placeholder}
               disabled={disabled}
             />
+            {error && <small className="errorMessage">{error?.message}</small>}
           </Form.Item>
         )}
       />
