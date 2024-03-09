@@ -1,4 +1,4 @@
-import { TQueryParam } from "../../../pages/admin/academicManagement/academicSemester/AcademicSemester";
+import { TQueryParam } from "../../../pages/admin/academicManagement/academicSemester/AcademicSemesters";
 import { TResponseRedux } from "../../../types";
 import {
   TAcademicDepartment,

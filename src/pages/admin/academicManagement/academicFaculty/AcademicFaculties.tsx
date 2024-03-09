@@ -39,7 +39,7 @@ const columns: TableColumnsType<TTableData> = [
   },
 ];
 
-const AcademicFaculty = () => {
+const AcademicFaculties = () => {
   const { data, isLoading } = useGetAllFacultyQuery(undefined);
   const academicFaculties = data?.data;
 
@@ -77,4 +77,4 @@ const AcademicFaculty = () => {
   );
 };
 
-export default AcademicFaculty;
+export default AcademicFaculties;

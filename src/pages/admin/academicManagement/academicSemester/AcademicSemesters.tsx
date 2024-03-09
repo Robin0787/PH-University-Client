@@ -81,7 +81,7 @@ const columns: TableColumnsType<TTableData> = [
   },
 ];
 
-const AcademicSemester = () => {
+const AcademicSemesters = () => {
   const [params, setParams] = useState<TQueryParam[]>([]);
   const { data, isLoading } = useGetAllSemesterQuery(params);
   const academicSemesters = data?.data;
@@ -138,4 +138,4 @@ const AcademicSemester = () => {
   );
 };
 
-export default AcademicSemester;
+export default AcademicSemesters;

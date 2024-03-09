@@ -34,7 +34,7 @@ const columns: TableColumnsType<TTableData> = [
   },
 ];
 
-const AcademicDepartment = () => {
+const AcademicDepartments = () => {
   const { data, isLoading } = useGetAllDepartmentQuery(undefined);
   const academicDepartments = data?.data;
 
@@ -75,4 +75,4 @@ const AcademicDepartment = () => {
   );
 };
 
-export default AcademicDepartment;
+export default AcademicDepartments;
