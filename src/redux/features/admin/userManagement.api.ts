@@ -5,7 +5,7 @@ export const academicSemesterApi = baseApi.injectEndpoints({
     createStudent: builder.mutation({
       query: (data) => {
         return {
-          url: "user/create-student",
+          url: "users/create-student",
           method: "POST",
           body: data,
         };

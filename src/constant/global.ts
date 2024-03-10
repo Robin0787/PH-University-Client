@@ -35,11 +35,11 @@ export const bloodGroups: string[] = [
 
 export const genderOptions: BaseOptionType[] = [
   {
-    value: "male",
+    value: "Male",
     label: "Male",
   },
   {
-    value: "female",
+    value: "Female",
     label: "Female",
   },
 ];

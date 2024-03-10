@@ -8,6 +8,8 @@ interface TPHSelectProps {
   placeholder?: string;
   defaultValue?: any;
   options: BaseOptionType[];
+  disabled?: boolean;
+  loading?: boolean;
 }
 
 const PHSelect = ({
@@ -16,6 +18,8 @@ const PHSelect = ({
   placeholder,
   defaultValue,
   options,
+  disabled,
+  loading,
 }: TPHSelectProps) => {
   return (
     <div>
@@ -25,6 +29,8 @@ const PHSelect = ({
         render={({ field, fieldState: { error } }) => (
           <Form.Item>
             <Select
+              disabled={disabled}
+              loading={loading}
               placeholder={placeholder}
               defaultValue={defaultValue}
               style={{ width: "100%", height: "40px" }}

@@ -1,33 +1,77 @@
+// import { zodResolver } from "@hookform/resolvers/zod";
 import { Col, Divider, Flex, Row } from "antd";
+import { BaseOptionType } from "antd/es/select";
 import FormInput from "../../components/form/FormInput";
 import PHDatePicker from "../../components/form/PHDatePicker";
 import PHForm from "../../components/form/PHForm";
 import PHSelect from "../../components/form/PHSelect";
 import GradientContainer from "../../components/gradientContainer/gradientContainer";
 import { bloodGroupOptions, genderOptions } from "../../constant/global";
+import {
+  useGetAllDepartmentQuery,
+  useGetAllSemesterQuery,
+} from "../../redux/features/admin/academicManagement.api";
+import { useCreateStudentMutation } from "../../redux/features/admin/userManagement.api";
+// import { studentValidationSchemas } from "../../schemas/UserManagement.schema";
 
 const CreateStudent = () => {
+  const [createStudent] = useCreateStudentMutation();
+
+  const { data: semesterData, isLoading: isSemesterDataLoading } =
+    useGetAllSemesterQuery(undefined);
+  const { data: departmentData, isLoading: isDepartmentDataLoading } =
+    useGetAllDepartmentQuery(undefined, { skip: isSemesterDataLoading });
+
+  const admissionSemesterOptions = semesterData?.data?.map((semester) => ({
+    value: semester._id,
+    label: `${semester.name} - ${semester.year} (${semester.startMonth}-${semester.endMonth})`,
+  }));
+  const admissionDepartmentOptions = departmentData?.data?.map(
+    (department) => ({
+      value: department._id,
+      label: department.name,
+    })
+  );
+
   const handleCreateStudent = async (data: any) => {
-    console.log(data);
+    const studentData = {
+      password: "student123",
+      student: data,
+    };
 
-    // const formData = new FormData();
-    // formData.append("data", JSON.stringify(data));
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(studentData));
 
-    // // This is for development
-    // // Just for checking the formData in console
+    try {
+      const res = await createStudent(formData).unwrap();
+      console.log(res);
+    } catch (error: any) {
+      console.log("---Error----");
+      console.log(error);
+    }
+
+    // This is for development
+    // Just for checking the formData in console
     // console.log(Object.fromEntries(formData));
   };
   return (
     <div style={{ width: "100%" }}>
       <Flex justify="center" align="center" flex={"col"}>
         <Col span={24}>
-          <PHForm onSubmit={handleCreateStudent}>
+          <PHForm
+            onSubmit={handleCreateStudent}
+            // resolver={zodResolver(
+            //   studentValidationSchemas.studentCreateValidationSchema
+            // )}
+          >
             <GradientContainer>
-              <div style={{ padding: "20px", width: "100%" }}>
+              <div
+                style={{ padding: "20px", width: "100%" }}
+                className="container"
+              >
                 <h3 className="heading">Create Student</h3>
-
-                <div>
-                  <Divider>Personal Info</Divider>
+                <div className="phForm">
+                  <Divider>Personal Information</Divider>
                   <Row gutter={10}>
                     <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
                       <FormInput
@@ -69,6 +113,144 @@ const CreateStudent = () => {
                         label="Blood Group"
                         placeholder="Select Blood Group"
                         options={bloodGroupOptions}
+                      />
+                    </Col>
+                  </Row>
+                  <Divider>Contact Information</Divider>
+                  <Row gutter={10}>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput type="text" name="email" label="Email" />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="number"
+                        name="contactNo"
+                        label="Contact Number"
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="number"
+                        name="emergencyContactNo"
+                        label="Emergency Contact Number"
+                      />
+                    </Col>
+                  </Row>
+                  <Divider>Guardian Information</Divider>
+                  <Row gutter={10}>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="text"
+                        name="guardian.fatherName"
+                        label="Father Name"
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="text"
+                        name="guardian.fatherOccupation"
+                        label="Father Occupation"
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="number"
+                        name="guardian.fatherContactNo"
+                        label="Father Contact No"
+                      />
+                    </Col>
+                  </Row>
+                  <Row gutter={10}>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="text"
+                        name="guardian.motherName"
+                        label="Mother Name"
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="text"
+                        name="guardian.motherOccupation"
+                        label="Mother Occupation"
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="number"
+                        name="guardian.motherContactNo"
+                        label="Mother Contact No"
+                      />
+                    </Col>
+                  </Row>
+                  <Divider>Local Guardian Information</Divider>
+                  <Row gutter={10}>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="text"
+                        name="localGuardian.name"
+                        label="Name"
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="text"
+                        name="localGuardian.occupation"
+                        label="Occupation"
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="number"
+                        name="localGuardian.contactNo"
+                        label="Contact No"
+                      />
+                    </Col>
+                  </Row>
+                  <Row gutter={10}>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="text"
+                        name="localGuardian.address"
+                        label="Address"
+                      />
+                    </Col>
+                  </Row>
+                  <Divider>Student Address</Divider>
+                  <Row gutter={10}>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="text"
+                        name="presentAddress"
+                        label="Present Address"
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <FormInput
+                        type="text"
+                        name="permanentAddress"
+                        label="Permanent Address"
+                      />
+                    </Col>
+                  </Row>
+                  <Divider>Academic Information</Divider>
+                  <Row gutter={10}>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <PHSelect
+                        name="admissionSemester"
+                        label="Admission Semester"
+                        disabled={isSemesterDataLoading}
+                        placeholder="Select Admission Semester"
+                        options={admissionSemesterOptions as BaseOptionType[]}
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <PHSelect
+                        name="academicDepartment"
+                        label="Academic Department"
+                        disabled={isDepartmentDataLoading}
+                        placeholder="Select Academic Department"
+                        options={admissionDepartmentOptions as BaseOptionType[]}
                       />
                     </Col>
                   </Row>

@@ -33,7 +33,6 @@ const PHForm = ({
     formConfig["resolver"] = resolver;
   }
   const methods = useForm(formConfig);
-
   return (
     <FormProvider {...methods}>
       <Form

@@ -147,6 +147,14 @@ body {
   font-weight: bold;
 }
 
+.container {
+  height: 100%;
+  width: 100%;
+  max-height: 720px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 /*  Utility Classes styles */
 .flex-center {
   display: flex;
