@@ -36,10 +36,11 @@ const studentCreateValidationSchema = z.object({
   gender: z.enum(["Male", "Female"], {
     required_error: "This field is required!",
   }),
-  dateOfBirth: z.string({ required_error: "This field is required!" }),
+  dateOfBirth: z.any({ required_error: "This field is required!" }),
   bloodGroup: z.enum(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"], {
     required_error: "This field is required!",
   }),
+  image: z.any().optional(),
 
   email: z
     .string({

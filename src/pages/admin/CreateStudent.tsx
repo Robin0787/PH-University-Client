@@ -1,6 +1,8 @@
-// import { zodResolver } from "@hookform/resolvers/zod";
-import { Col, Divider, Flex, Row } from "antd";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Col, Divider, Flex, Form, Input, Row } from "antd";
 import { BaseOptionType } from "antd/es/select";
+import { Controller } from "react-hook-form";
+import toast from "react-hot-toast";
 import FormInput from "../../components/form/FormInput";
 import PHDatePicker from "../../components/form/PHDatePicker";
 import PHForm from "../../components/form/PHForm";
@@ -12,7 +14,8 @@ import {
   useGetAllSemesterQuery,
 } from "../../redux/features/admin/academicManagement.api";
 import { useCreateStudentMutation } from "../../redux/features/admin/userManagement.api";
-// import { studentValidationSchemas } from "../../schemas/UserManagement.schema";
+import { studentValidationSchemas } from "../../schemas/UserManagement.schema";
+import { TIssue } from "../../types";
 
 const CreateStudent = () => {
   const [createStudent] = useCreateStudentMutation();
@@ -34,6 +37,12 @@ const CreateStudent = () => {
   );
 
   const handleCreateStudent = async (data: any) => {
+    if (!data.dateOfBirth) {
+      toast.error("Date of Birth is required!");
+      return;
+    }
+
+    const toastId = toast.loading("Student is creating...");
     const studentData = {
       password: "student123",
       student: data,
@@ -41,18 +50,29 @@ const CreateStudent = () => {
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(studentData));
-
+    formData.append("file", data.image);
     try {
       const res = await createStudent(formData).unwrap();
-      console.log(res);
+      if (res.success) {
+        toast.success(res.message || "Faculty is created successfully", {
+          id: toastId,
+        });
+        // navigate("/admin/academic-faculties");
+      }
     } catch (error: any) {
-      console.log("---Error----");
-      console.log(error);
+      const errorSources = error?.data?.errorSources;
+      if (errorSources.length > 0) {
+        errorSources.map((issue: TIssue) =>
+          toast.error(
+            "(" + issue?.path + "): " + issue?.message ||
+              "Something went wrong",
+            { id: toastId }
+          )
+        );
+      } else {
+        toast.error(error?.message || "Something went wrong", { id: toastId });
+      }
     }
-
-    // This is for development
-    // Just for checking the formData in console
-    // console.log(Object.fromEntries(formData));
   };
   return (
     <div style={{ width: "100%" }}>
@@ -60,9 +80,9 @@ const CreateStudent = () => {
         <Col span={24}>
           <PHForm
             onSubmit={handleCreateStudent}
-            // resolver={zodResolver(
-            //   studentValidationSchemas.studentCreateValidationSchema
-            // )}
+            resolver={zodResolver(
+              studentValidationSchemas.studentCreateValidationSchema
+            )}
           >
             <GradientContainer>
               <div
@@ -113,6 +133,26 @@ const CreateStudent = () => {
                         label="Blood Group"
                         placeholder="Select Blood Group"
                         options={bloodGroupOptions}
+                      />
+                    </Col>
+                  </Row>
+                  <Row gutter={10}>
+                    <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+                      <Controller
+                        name="image"
+                        render={({ field: { onChange, value, ...field } }) => (
+                          <Form.Item
+                            label={<p style={{ fontSize: "16px" }}>Image</p>}
+                          >
+                            <Input
+                              size="large"
+                              type="file"
+                              value={value?.fileName}
+                              {...field}
+                              onChange={(e) => onChange(e.target?.files?.[0])}
+                            />
+                          </Form.Item>
+                        )}
                       />
                     </Col>
                   </Row>
