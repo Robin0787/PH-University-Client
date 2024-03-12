@@ -24,10 +24,6 @@ const columns: TableColumnsType<TTableData> = [
     dataIndex: "name",
   },
   {
-    title: "",
-    dataIndex: "",
-  },
-  {
     title: <p className="tableHeading">Action</p>,
     render: () => (
       <Flex justify="center" align="center" gap={20}>
@@ -36,6 +32,11 @@ const columns: TableColumnsType<TTableData> = [
       </Flex>
     ),
     align: "center",
+    width: "1%",
+  },
+  {
+    title: "",
+    dataIndex: "",
   },
 ];
 

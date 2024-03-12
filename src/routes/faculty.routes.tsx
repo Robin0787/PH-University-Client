@@ -1,5 +1,5 @@
-import CreateFaculty from "../pages/admin/CreateFaculty";
-import CreateStudent from "../pages/admin/CreateStudent";
+import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
+import CreateStudent from "../pages/admin/userManagement/CreateStudent";
 import FacultyDashboard from "../pages/faculty/FacultyDashboard";
 
 export const facultyPaths = [

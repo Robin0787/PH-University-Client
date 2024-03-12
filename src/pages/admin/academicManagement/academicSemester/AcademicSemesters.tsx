@@ -78,6 +78,7 @@ const columns: TableColumnsType<TTableData> = [
       </Flex>
     ),
     align: "center",
+    width: "1%",
   },
 ];
 

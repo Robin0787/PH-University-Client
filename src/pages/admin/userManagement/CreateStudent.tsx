@@ -3,22 +3,24 @@ import { Col, Divider, Flex, Form, Input, Row } from "antd";
 import { BaseOptionType } from "antd/es/select";
 import { Controller } from "react-hook-form";
 import toast from "react-hot-toast";
-import FormInput from "../../components/form/FormInput";
-import PHDatePicker from "../../components/form/PHDatePicker";
-import PHForm from "../../components/form/PHForm";
-import PHSelect from "../../components/form/PHSelect";
-import GradientContainer from "../../components/gradientContainer/gradientContainer";
-import { bloodGroupOptions, genderOptions } from "../../constant/global";
+import { useNavigate } from "react-router-dom";
+import FormInput from "../../../components/form/FormInput";
+import PHDatePicker from "../../../components/form/PHDatePicker";
+import PHForm from "../../../components/form/PHForm";
+import PHSelect from "../../../components/form/PHSelect";
+import GradientContainer from "../../../components/gradientContainer/gradientContainer";
+import { bloodGroupOptions, genderOptions } from "../../../constant/global";
 import {
   useGetAllDepartmentQuery,
   useGetAllSemesterQuery,
-} from "../../redux/features/admin/academicManagement.api";
-import { useCreateStudentMutation } from "../../redux/features/admin/userManagement.api";
-import { studentValidationSchemas } from "../../schemas/UserManagement.schema";
-import { TIssue } from "../../types";
+} from "../../../redux/features/admin/academicManagement.api";
+import { useCreateStudentMutation } from "../../../redux/features/admin/userManagement.api";
+import { studentValidationSchemas } from "../../../schemas/UserManagement.schema";
+import { TIssue } from "../../../types";
 
 const CreateStudent = () => {
   const [createStudent] = useCreateStudentMutation();
+  const navigate = useNavigate();
 
   const { data: semesterData, isLoading: isSemesterDataLoading } =
     useGetAllSemesterQuery(undefined);
@@ -57,7 +59,7 @@ const CreateStudent = () => {
         toast.success(res.message || "Faculty is created successfully", {
           id: toastId,
         });
-        // navigate("/admin/academic-faculties");
+        navigate("/admin/students");
       }
     } catch (error: any) {
       const errorSources = error?.data?.errorSources;
