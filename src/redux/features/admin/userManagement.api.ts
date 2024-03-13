@@ -70,6 +70,13 @@ export const academicSemesterApi = baseApi.injectEndpoints({
         };
       },
     }),
+    createAdmin: builder.mutation({
+      query: (data) => ({
+        url: "users/create-admin",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -79,4 +86,5 @@ export const {
   useGetSingleStudentQuery,
   useCreateFacultyMutation,
   useGetAllFacultiesQuery,
+  useCreateAdminMutation,
 } = academicSemesterApi;
