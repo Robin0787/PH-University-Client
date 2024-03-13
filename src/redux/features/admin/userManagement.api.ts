@@ -1,6 +1,6 @@
 import { TQueryParam } from "../../../pages/admin/userManagement/Students";
 import { TResponseRedux } from "../../../types";
-import { TStudent } from "../../../types/userManagement.types";
+import { TFaculty, TStudent } from "../../../types/userManagement.types";
 import { baseApi } from "../../api/baseApi";
 
 export const academicSemesterApi = baseApi.injectEndpoints({
@@ -13,9 +13,6 @@ export const academicSemesterApi = baseApi.injectEndpoints({
             params.append(item.name, item.value as string)
           );
         }
-
-        console.log(args);
-
         return {
           url: "students",
           method: "GET",
@@ -44,6 +41,35 @@ export const academicSemesterApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    createFaculty: builder.mutation({
+      query: (data) => ({
+        url: "users/create-faculty",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    getAllFaculties: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParam) =>
+            params.append(item.name, item.value as string)
+          );
+        }
+
+        return {
+          url: "faculties",
+          method: "GET",
+          params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TFaculty[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
   }),
 });
 
@@ -51,4 +77,6 @@ export const {
   useCreateStudentMutation,
   useGetAllStudentsQuery,
   useGetSingleStudentQuery,
+  useCreateFacultyMutation,
+  useGetAllFacultiesQuery,
 } = academicSemesterApi;

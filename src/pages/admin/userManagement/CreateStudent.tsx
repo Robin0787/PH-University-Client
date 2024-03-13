@@ -56,10 +56,11 @@ const CreateStudent = () => {
     try {
       const res = await createStudent(formData).unwrap();
       if (res.success) {
-        toast.success(res.message || "Faculty is created successfully", {
+        toast.success(res.message || "Student is created successfully", {
           id: toastId,
         });
         navigate("/admin/students");
+        toast.remove(toastId);
       }
     } catch (error: any) {
       const errorSources = error?.data?.errorSources;

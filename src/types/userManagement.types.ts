@@ -1,8 +1,14 @@
+import {
+  TAcademicDepartment,
+  TAcademicFaculty,
+} from "./academicManagement.types";
+
 export type TStudentName = {
   firstName: string;
   middleName?: string;
   lastName: string;
 };
+
 export type TGender = "Male" | "Female";
 
 export type TGuardian = {
@@ -43,8 +49,8 @@ export interface TStudent {
   contactNo: string;
   emergencyContactNo: string;
   admissionSemester: string;
-  academicDepartment: string;
-  academicFaculty: string;
+  academicDepartment: TAcademicDepartment;
+  academicFaculty: TAcademicFaculty;
   bloodGroup: TBloodGroup;
   presentAddress: string;
   permanentAddress: string;
@@ -54,4 +60,30 @@ export interface TStudent {
   isDeleted: boolean;
   createdAt?: string;
   updatedAt?: string;
+}
+
+export type TFacultyName = {
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+};
+
+export interface TFaculty {
+  _id: string;
+  id: string;
+  name: TFacultyName;
+  fullName: string;
+  designation: string;
+  email: string;
+  gender: TGender;
+  dateOfBirth?: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  academicDepartment: TAcademicDepartment;
+  academicFaculty: TAcademicFaculty;
+  bloodGroup?: TBloodGroup;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImage: string;
+  isDeleted?: boolean;
 }
