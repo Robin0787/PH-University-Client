@@ -7,7 +7,7 @@ import {
 } from "../../../types/userManagement.types";
 import { baseApi } from "../../api/baseApi";
 
-export const academicSemesterApi = baseApi.injectEndpoints({
+export const userManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllStudents: builder.query({
       query: (args) => {
@@ -120,4 +120,4 @@ export const {
   useGetAllFacultiesQuery,
   useCreateAdminMutation,
   useGetAllAdminsQuery,
-} = academicSemesterApi;
+} = userManagementApi;

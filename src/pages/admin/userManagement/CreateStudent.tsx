@@ -15,7 +15,7 @@ import {
   useGetAllSemesterQuery,
 } from "../../../redux/features/admin/academicManagement.api";
 import { useCreateStudentMutation } from "../../../redux/features/admin/userManagement.api";
-import { studentValidationSchemas } from "../../../schemas/UserManagement.schema";
+import { UserManagementValidationSchemas } from "../../../schemas/UserManagement.schema";
 import { TIssue } from "../../../types";
 
 const CreateStudent = () => {
@@ -39,11 +39,6 @@ const CreateStudent = () => {
   );
 
   const handleCreateStudent = async (data: any) => {
-    if (!data.dateOfBirth) {
-      toast.error("Date of Birth is required!");
-      return;
-    }
-
     const toastId = toast.loading("Student is creating...");
     const studentData = {
       password: "student123",
@@ -84,7 +79,7 @@ const CreateStudent = () => {
           <PHForm
             onSubmit={handleCreateStudent}
             resolver={zodResolver(
-              studentValidationSchemas.studentCreateValidationSchema
+              UserManagementValidationSchemas.studentCreateValidationSchema
             )}
           >
             <GradientContainer>

@@ -12,7 +12,7 @@ import GradientContainer from "../../../components/gradientContainer/gradientCon
 import { bloodGroupOptions, genderOptions } from "../../../constant/global";
 import { useGetAllDepartmentQuery } from "../../../redux/features/admin/academicManagement.api";
 import { useCreateAdminMutation } from "../../../redux/features/admin/userManagement.api";
-import { adminValidationSchemas } from "../../../schemas/UserManagement.schema";
+import { UserManagementValidationSchemas } from "../../../schemas/UserManagement.schema";
 import { TIssue } from "../../../types";
 
 const CreateAdmin = () => {
@@ -29,10 +29,6 @@ const CreateAdmin = () => {
   const [createAdmin] = useCreateAdminMutation();
 
   const handleCreateAdmin = async (data: FieldValues) => {
-    if (!data.dateOfBirth) {
-      toast.error("Date of Birth is required!");
-      return;
-    }
     const toastId = toast.loading("Admin is creating...");
 
     const facultyData = {
@@ -71,7 +67,7 @@ const CreateAdmin = () => {
           <PHForm
             onSubmit={handleCreateAdmin}
             resolver={zodResolver(
-              adminValidationSchemas.adminCreateValidationSchema
+              UserManagementValidationSchemas.adminCreateValidationSchema
             )}
           >
             <GradientContainer>

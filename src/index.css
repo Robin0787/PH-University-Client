@@ -155,6 +155,16 @@ body {
   overflow-y: auto;
 }
 
+.responsive-width80 {
+  width: 100%;
+}
+
+@media screen and (min-width: 1000px) {
+  .responsive-width80 {
+    width: 80%;
+  }
+}
+
 /*  Utility Classes styles */
 .flex-center {
   display: flex;

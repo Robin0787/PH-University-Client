@@ -5,6 +5,12 @@ import AcademicFaculties from "../pages/admin/academicManagement/academicFaculty
 import CreateAcademicFaculty from "../pages/admin/academicManagement/academicFaculty/CreateAcademicFaculty";
 import AcademicSemesters from "../pages/admin/academicManagement/academicSemester/AcademicSemesters";
 import CreateAcademicSemester from "../pages/admin/academicManagement/academicSemester/CreateAcademicSemester";
+import Courses from "../pages/admin/courseManagement/Courses";
+import CreateCourse from "../pages/admin/courseManagement/CreateCourse";
+import OfferCourse from "../pages/admin/courseManagement/OfferCourse";
+import OfferedCourses from "../pages/admin/courseManagement/OfferedCourses";
+import RegisteredSemesters from "../pages/admin/semesterRegistration/RegisteredSemesters";
+import SemesterRegistration from "../pages/admin/semesterRegistration/SemesterRegistration";
 import Admins from "../pages/admin/userManagement/Admins";
 import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
 import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
@@ -97,14 +103,34 @@ export const adminPaths = [
     name: "Course Management",
     children: [
       {
+        name: "Semester Registration",
+        path: "semester-registration",
+        element: <SemesterRegistration />,
+      },
+      {
+        name: "Registered Semesters",
+        path: "registered-semester",
+        element: <RegisteredSemesters />,
+      },
+      {
         name: "Create Course",
         path: "create-course",
-        element: <CreateAdmin />,
+        element: <CreateCourse />,
+      },
+      {
+        name: "Courses",
+        path: "courses",
+        element: <Courses />,
       },
       {
         name: "Offer Course",
-        path: "create-faculty",
-        element: <CreateFaculty />,
+        path: "offer-course",
+        element: <OfferCourse />,
+      },
+      {
+        name: "Offered Courses",
+        path: "offered-courses",
+        element: <OfferedCourses />,
       },
     ],
   },

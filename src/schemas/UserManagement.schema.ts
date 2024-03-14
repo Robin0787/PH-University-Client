@@ -36,7 +36,9 @@ const studentCreateValidationSchema = z.object({
   gender: z.enum(["Male", "Female"], {
     required_error: "This field is required!",
   }),
-  dateOfBirth: z.any({ required_error: "This field is required!" }),
+  dateOfBirth: z.any().refine((val) => val, {
+    message: "This field is required!",
+  }),
   bloodGroup: z.enum(["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"], {
     required_error: "This field is required!",
   }),
@@ -62,10 +64,6 @@ const studentCreateValidationSchema = z.object({
   academicDepartment: z.string({ required_error: "This field is required!" }),
 });
 
-export const studentValidationSchemas = {
-  studentCreateValidationSchema,
-};
-
 const facultyCreateValidationSchema = z.object({
   name: nameSchema,
   designation: z.string({ required_error: "This field is required!" }),
@@ -73,7 +71,9 @@ const facultyCreateValidationSchema = z.object({
   gender: z.enum(["Male", "Female"], {
     required_error: "This field is required!",
   }),
-  dateOfBirth: z.any({ required_error: "This field is required!" }),
+  dateOfBirth: z.any().refine((val) => val, {
+    message: "This field is required!",
+  }),
   image: z.any().optional(),
   contactNo: z.string({ required_error: "This field is required!" }),
   emergencyContactNo: z.string({ required_error: "This field is required!" }),
@@ -85,10 +85,6 @@ const facultyCreateValidationSchema = z.object({
   permanentAddress: z.string({ required_error: "This field is required!" }),
 });
 
-export const facultyValidationSchemas = {
-  facultyCreateValidationSchema,
-};
-
 const adminCreateValidationSchema = z.object({
   name: nameSchema,
   designation: z.string({ required_error: "This field is required!" }),
@@ -96,7 +92,9 @@ const adminCreateValidationSchema = z.object({
   gender: z.enum(["Male", "Female"], {
     required_error: "This field is required!",
   }),
-  dateOfBirth: z.any(),
+  dateOfBirth: z.any().refine((val) => val, {
+    message: "This field is required!",
+  }),
   image: z.any().optional(),
   contactNo: z.string({ required_error: "This field is required!" }),
   emergencyContactNo: z.string({ required_error: "This field is required!" }),
@@ -108,6 +106,8 @@ const adminCreateValidationSchema = z.object({
   permanentAddress: z.string({ required_error: "This field is required!" }),
 });
 
-export const adminValidationSchemas = {
+export const UserManagementValidationSchemas = {
+  studentCreateValidationSchema,
+  facultyCreateValidationSchema,
   adminCreateValidationSchema,
 };
