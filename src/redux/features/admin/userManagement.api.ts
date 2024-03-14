@@ -1,6 +1,10 @@
 import { TQueryParam } from "../../../pages/admin/userManagement/Students";
 import { TResponseRedux } from "../../../types";
-import { TFaculty, TStudent } from "../../../types/userManagement.types";
+import {
+  TAdmin,
+  TFaculty,
+  TStudent,
+} from "../../../types/userManagement.types";
 import { baseApi } from "../../api/baseApi";
 
 export const academicSemesterApi = baseApi.injectEndpoints({
@@ -25,6 +29,7 @@ export const academicSemesterApi = baseApi.injectEndpoints({
           meta: response.meta,
         };
       },
+      providesTags: ["Students"],
     }),
     createStudent: builder.mutation({
       query: (data) => {
@@ -34,18 +39,12 @@ export const academicSemesterApi = baseApi.injectEndpoints({
           body: data,
         };
       },
+      invalidatesTags: ["Students"],
     }),
     getSingleStudent: builder.query({
       query: (studentId: string | undefined) => ({
         url: `students/${studentId}`,
         method: "GET",
-      }),
-    }),
-    createFaculty: builder.mutation({
-      query: (data) => ({
-        url: "users/create-faculty",
-        method: "POST",
-        body: data,
       }),
     }),
     getAllFaculties: builder.query({
@@ -69,6 +68,38 @@ export const academicSemesterApi = baseApi.injectEndpoints({
           meta: response.meta,
         };
       },
+      providesTags: ["Faculties"],
+    }),
+    createFaculty: builder.mutation({
+      query: (data) => ({
+        url: "users/create-faculty",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Faculties"],
+    }),
+    getAllAdmins: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParam) =>
+            params.append(item.name, item.value as string)
+          );
+        }
+
+        return {
+          url: "admins",
+          method: "GET",
+          params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAdmin[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+      providesTags: ["Admins"],
     }),
     createAdmin: builder.mutation({
       query: (data) => ({
@@ -76,6 +107,7 @@ export const academicSemesterApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Admins"],
     }),
   }),
 });
@@ -87,4 +119,5 @@ export const {
   useCreateFacultyMutation,
   useGetAllFacultiesQuery,
   useCreateAdminMutation,
+  useGetAllAdminsQuery,
 } = academicSemesterApi;

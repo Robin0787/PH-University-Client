@@ -1,21 +1,16 @@
-import {
-  Button,
-  Flex,
-  Pagination,
-  Table,
-  TableColumnsType,
-  TableProps,
-} from "antd";
+import { Button, Flex, Pagination, Table, TableColumnsType } from "antd";
 import { Key, useState } from "react";
-import { Link } from "react-router-dom";
 import GradientContainer from "../../../components/gradientContainer/gradientContainer";
-import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagement.api";
-import { TStudent } from "../../../types/userManagement.types";
+import { useGetAllAdminsQuery } from "../../../redux/features/admin/userManagement.api";
 
-export type TTableData = Pick<
-  TStudent,
-  "_id" | "id" | "fullName" | "email" | "contactNo"
->;
+export type TTableData = {
+  _id: string;
+  id: string;
+  fullName: string;
+  email: string;
+  contactNo: string;
+  department: string;
+};
 
 export type TQueryParam = {
   name: string;
@@ -24,14 +19,18 @@ export type TQueryParam = {
 
 const columns: TableColumnsType<TTableData> = [
   {
-    title: <p className="tableHeading">Name</p>,
-    dataIndex: "fullName",
-  },
-  {
-    title: <p className="tableHeading">Roll No</p>,
+    title: <p className="tableHeading">ID</p>,
     dataIndex: "id",
     defaultSortOrder: "ascend",
-    sorter: (a, b) => Number(a.id) - Number(b.id),
+    sorter: (a, b) => {
+      const aId = a?.id.substring(2);
+      const bId = b?.id.substring(2);
+      return Number(aId) - Number(bId);
+    },
+  },
+  {
+    title: <p className="tableHeading">Name</p>,
+    dataIndex: "fullName",
   },
   {
     title: <p className="tableHeading">Email</p>,
@@ -42,15 +41,16 @@ const columns: TableColumnsType<TTableData> = [
     dataIndex: "contactNo",
   },
   {
+    title: <p className="tableHeading">Department</p>,
+    dataIndex: "department",
+  },
+  {
     title: <p className="tableHeading">Action</p>,
     render: (item) => {
       return (
         <Flex justify="center" align="center" gap={10}>
-          <Button>
-            <Link to={`/admin/student-data/${item._id}`}>Details</Link>
-          </Button>
+          <Button>Details</Button>
           <Button>Update</Button>
-          <Button>Block</Button>
         </Flex>
       );
     },
@@ -59,52 +59,39 @@ const columns: TableColumnsType<TTableData> = [
   },
 ];
 
-const Students = () => {
+const Admins = () => {
   const [page, setPage] = useState<number>(1);
   const [params] = useState<TQueryParam[]>([]);
-  const { data, isLoading } = useGetAllStudentsQuery([
+  const { data, isLoading } = useGetAllAdminsQuery([
     { name: "limit", value: 5 },
     { name: "page", value: page },
     { name: "sort", value: "id" },
     ...params,
   ]);
-  const studentData = data?.data;
+  const adminData = data?.data;
   const metaData = data?.meta;
 
-  console.log(studentData);
-
-  const tableData = studentData?.map(
-    ({ _id, id, fullName, email, contactNo }) => ({
+  const tableData = adminData?.map(
+    ({ _id, id, fullName, email, contactNo, managementDepartment }) => ({
       key: _id,
       _id,
       id,
       email,
       fullName,
       contactNo,
+      department: managementDepartment?.name,
     })
   );
-
-  const onChange: TableProps<TTableData>["onChange"] = (
-    pagination,
-    _filters,
-    _sorter,
-    extra
-  ) => {
-    if (extra.action === "paginate") {
-      console.log(pagination);
-    }
-  };
 
   return (
     <GradientContainer>
       <div style={{ padding: "20px 0" }}>
         <div style={{ paddingBlock: "10px 20px" }}>
-          <h1 className="heading">Student List</h1>
+          <h1 className="heading">Admin List</h1>
         </div>
         <Table
           columns={columns}
           dataSource={tableData}
-          onChange={onChange}
           loading={isLoading}
           pagination={false}
         />
@@ -120,4 +107,4 @@ const Students = () => {
   );
 };
 
-export default Students;
+export default Admins;

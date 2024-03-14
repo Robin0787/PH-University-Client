@@ -87,3 +87,21 @@ export interface TFaculty {
   profileImage: string;
   isDeleted?: boolean;
 }
+
+export interface TAdmin {
+  _id: string;
+  id: string;
+  name: TFacultyName;
+  fullName: string;
+  designation: string;
+  email: string;
+  gender: TGender;
+  dateOfBirth?: string;
+  contactNo: string;
+  emergencyContactNo: string;
+  managementDepartment: TAcademicDepartment;
+  bloodGroup?: TBloodGroup;
+  presentAddress: string;
+  permanentAddress: string;
+  profileImage?: string;
+}

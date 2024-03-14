@@ -1,11 +1,4 @@
-import {
-  Button,
-  Flex,
-  Pagination,
-  Table,
-  TableColumnsType,
-  TableProps,
-} from "antd";
+import { Button, Flex, Pagination, Table, TableColumnsType } from "antd";
 import { Key, useState } from "react";
 import GradientContainer from "../../../components/gradientContainer/gradientContainer";
 import { useGetAllFacultiesQuery } from "../../../redux/features/admin/userManagement.api";
@@ -75,7 +68,7 @@ const Faculties = () => {
   const [page, setPage] = useState<number>(1);
   const [params] = useState<TQueryParam[]>([]);
   const { data, isLoading } = useGetAllFacultiesQuery([
-    { name: "limit", value: 10 },
+    { name: "limit", value: 5 },
     { name: "page", value: page },
     { name: "sort", value: "id" },
     ...params,
@@ -104,13 +97,6 @@ const Faculties = () => {
     })
   );
 
-  const onChange: TableProps<TTableData>["onChange"] = (
-    _pagination,
-    _filters,
-    _sorter,
-    _extra
-  ) => {};
-
   return (
     <GradientContainer>
       <div style={{ padding: "20px 0" }}>
@@ -120,7 +106,6 @@ const Faculties = () => {
         <Table
           columns={columns}
           dataSource={tableData}
-          onChange={onChange}
           loading={isLoading}
           pagination={false}
         />

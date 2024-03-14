@@ -3,6 +3,7 @@ import { Col, Divider, Flex, Form, Input, Row } from "antd";
 import { BaseOptionType } from "antd/es/select";
 import { Controller, FieldValues } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import FormInput from "../../../components/form/FormInput";
 import PHDatePicker from "../../../components/form/PHDatePicker";
 import PHForm from "../../../components/form/PHForm";
@@ -15,6 +16,7 @@ import { adminValidationSchemas } from "../../../schemas/UserManagement.schema";
 import { TIssue } from "../../../types";
 
 const CreateAdmin = () => {
+  const navigate = useNavigate();
   const { data: departmentData, isLoading: isDepartmentDataLoading } =
     useGetAllDepartmentQuery(undefined);
   const admissionDepartmentOptions = departmentData?.data?.map(
@@ -23,9 +25,10 @@ const CreateAdmin = () => {
       label: department.name,
     })
   );
+
   const [createAdmin] = useCreateAdminMutation();
 
-  const handleCreateFaculty = async (data: FieldValues) => {
+  const handleCreateAdmin = async (data: FieldValues) => {
     if (!data.dateOfBirth) {
       toast.error("Date of Birth is required!");
       return;
@@ -43,22 +46,17 @@ const CreateAdmin = () => {
 
     try {
       const res = await createAdmin(formData).unwrap();
-      console.log(res);
       if (res.success) {
         toast.success(res.message || "Admin is created successfully", {
           id: toastId,
         });
+        navigate("/admin/admins");
       }
     } catch (error: any) {
-      console.log(error);
       const errorSources = error?.data?.errorSources;
       if (errorSources.length > 0) {
         errorSources.map((issue: TIssue) =>
-          toast.error(
-            "(" + issue?.path + "): " + issue?.message ||
-              "Something went wrong",
-            { id: toastId }
-          )
+          toast.error(issue?.message || "Something went wrong", { id: toastId })
         );
       } else {
         toast.error(error?.message || "Something went wrong", { id: toastId });
@@ -71,7 +69,7 @@ const CreateAdmin = () => {
       <Flex justify="center" align="center" flex={"col"}>
         <Col span={24}>
           <PHForm
-            onSubmit={handleCreateFaculty}
+            onSubmit={handleCreateAdmin}
             resolver={zodResolver(
               adminValidationSchemas.adminCreateValidationSchema
             )}

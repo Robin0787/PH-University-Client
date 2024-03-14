@@ -29,6 +29,7 @@ export const academicSemesterApi = baseApi.injectEndpoints({
           meta: response.meta,
         };
       },
+      providesTags: ["AcademicSemester"],
     }),
     createAcademicSemester: builder.mutation({
       query: (data) => ({
@@ -36,13 +37,7 @@ export const academicSemesterApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
-    }),
-    createAcademicFaculty: builder.mutation({
-      query: (data) => ({
-        url: "/academic-faculties/create-academic-faculty",
-        method: "POST",
-        body: data,
-      }),
+      invalidatesTags: ["AcademicSemester"],
     }),
     getAllFaculty: builder.query({
       query: (args) => {
@@ -65,13 +60,15 @@ export const academicSemesterApi = baseApi.injectEndpoints({
           meta: response.meta,
         };
       },
+      providesTags: ["AcademicFaculty"],
     }),
-    createAcademicDepartment: builder.mutation({
+    createAcademicFaculty: builder.mutation({
       query: (data) => ({
-        url: "/academic-departments/create-academic-department",
+        url: "/academic-faculties/create-academic-faculty",
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["AcademicFaculty"],
     }),
     getAllDepartment: builder.query({
       query: (args) => {
@@ -94,6 +91,15 @@ export const academicSemesterApi = baseApi.injectEndpoints({
           meta: response.meta,
         };
       },
+      providesTags: ["AcademicDepartment"],
+    }),
+    createAcademicDepartment: builder.mutation({
+      query: (data) => ({
+        url: "/academic-departments/create-academic-department",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["AcademicDepartment"],
     }),
   }),
 });
