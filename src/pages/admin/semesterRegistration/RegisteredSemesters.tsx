@@ -1,7 +1,35 @@
-import { Button, Flex, Pagination, Table, TableColumnsType } from "antd";
+import {
+  Button,
+  Dropdown,
+  Flex,
+  Pagination,
+  Table,
+  TableColumnsType,
+  Tag,
+} from "antd";
+import moment from "moment";
 import { Key, useState } from "react";
 import GradientContainer from "../../../components/gradientContainer/gradientContainer";
-import { useGetAllRegisteredSemesterQuery } from "../../../redux/features/admin/courseManagement.api";
+import {
+  useGetAllRegisteredSemesterQuery,
+  useUpdateRegisteredSemesterStatusMutation,
+} from "../../../redux/features/admin/courseManagement.api";
+import handleAPIRequest from "../../../utils/handleAPIRequest";
+
+const statusOptions = [
+  {
+    label: "Upcoming",
+    key: "UPCOMING",
+  },
+  {
+    label: "Ongoing",
+    key: "ONGOING",
+  },
+  {
+    label: "Ended",
+    key: "ENDED",
+  },
+];
 
 export type TTableData = {
   key: string;
@@ -19,47 +47,10 @@ export type TQueryParam = {
   value: boolean | Key;
 };
 
-const columns: TableColumnsType<TTableData> = [
-  {
-    title: <p className="tableHeading">Academic Semester</p>,
-    dataIndex: "academicSemester",
-  },
-  {
-    title: <p className="tableHeading">Status</p>,
-    dataIndex: "status",
-  },
-  {
-    title: <p className="tableHeading">Start Date</p>,
-    dataIndex: "startDate",
-  },
-  {
-    title: <p className="tableHeading">End Date</p>,
-    dataIndex: "endDate",
-  },
-  {
-    title: <p className="tableHeading">Min Credit</p>,
-    dataIndex: "minCredit",
-    align: "center",
-  },
-  {
-    title: <p className="tableHeading">Max Credit</p>,
-    dataIndex: "maxCredit",
-    align: "center",
-  },
-  {
-    title: <p className="tableHeading">Action</p>,
-    render: () => (
-      <Flex justify="center" align="center" gap={20}>
-        <Button>Edit</Button>
-        <Button>Delete</Button>
-      </Flex>
-    ),
-    align: "center",
-    width: "1%",
-  },
-];
-
 const RegisteredSemesters = () => {
+  const [updateRegisteredSemesterStatus] =
+    useUpdateRegisteredSemesterStatusMutation();
+  const [semesterId, setSemesterId] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [params] = useState<TQueryParam[]>([]);
   const { data, isLoading } = useGetAllRegisteredSemesterQuery([
@@ -82,14 +73,86 @@ const RegisteredSemesters = () => {
     }) => ({
       key: _id,
       _id,
-      academicSemester: academicSemester?.name,
+      academicSemester: `${academicSemester?.name}-${academicSemester?.year} (${academicSemester?.startMonth}-${academicSemester?.endMonth})`,
       status,
-      startDate,
-      endDate,
+      startDate: moment(new Date(startDate)).format("MMMM"),
+      endDate: moment(new Date(endDate)).format("MMMM"),
       minCredit,
       maxCredit,
     })
   );
+
+  const handleStatusUpdate = (data: any) => {
+    const updatedData = {
+      _id: semesterId,
+      data: { status: data.key },
+    };
+    handleAPIRequest(updateRegisteredSemesterStatus, updatedData);
+  };
+
+  const menuProps = {
+    items: statusOptions,
+    onClick: handleStatusUpdate,
+  };
+
+  const columns: TableColumnsType<TTableData> = [
+    {
+      title: <p className="tableHeading">Academic Semester</p>,
+      dataIndex: "academicSemester",
+    },
+    {
+      title: <p className="tableHeading">Status</p>,
+      dataIndex: "status",
+      render: (item) => {
+        let color: string = "red";
+        if (item === "ONGOING") {
+          color = "green";
+        } else if (item === "UPCOMING") {
+          color = "blue";
+        }
+        return (
+          <Tag color={color} style={{ width: "100%", textAlign: "center" }}>
+            {item}
+          </Tag>
+        );
+      },
+      width: "1%",
+    },
+    {
+      title: <p className="tableHeading">Start Date</p>,
+      dataIndex: "startDate",
+    },
+    {
+      title: <p className="tableHeading">End Date</p>,
+      dataIndex: "endDate",
+    },
+    {
+      title: <p className="tableHeading">Min Credit</p>,
+      dataIndex: "minCredit",
+      align: "center",
+    },
+    {
+      title: <p className="tableHeading">Max Credit</p>,
+      dataIndex: "maxCredit",
+      align: "center",
+    },
+    {
+      title: <p className="tableHeading">Action</p>,
+      render: (item) => (
+        <Dropdown menu={menuProps} trigger={["click"]}>
+          <Button
+            onClick={() => {
+              setSemesterId(item._id);
+            }}
+          >
+            Update
+          </Button>
+        </Dropdown>
+      ),
+      align: "center",
+      width: "1%",
+    },
+  ];
 
   return (
     <GradientContainer>
@@ -102,6 +165,7 @@ const RegisteredSemesters = () => {
           dataSource={tableData}
           loading={isLoading}
           pagination={false}
+          style={{ minHeight: "400px" }}
         />
         <Flex align="center" justify="center" style={{ paddingTop: "15px" }}>
           <Pagination

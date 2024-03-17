@@ -94,6 +94,7 @@ const Admins = () => {
           dataSource={tableData}
           loading={isLoading}
           pagination={false}
+          style={{ minHeight: "400px" }}
         />
         <Flex align="center" justify="center" style={{ paddingTop: "15px" }}>
           <Pagination

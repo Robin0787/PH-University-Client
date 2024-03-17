@@ -133,6 +133,7 @@ const AcademicSemesters = () => {
           dataSource={tableData}
           onChange={onChange}
           loading={isLoading}
+          style={{ minHeight: "400px" }}
         />
       </div>
     </GradientContainer>

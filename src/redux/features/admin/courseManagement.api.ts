@@ -37,10 +37,19 @@ export const courseManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["SemesterRegistration"],
     }),
+    updateRegisteredSemesterStatus: builder.mutation({
+      query: (args: { data: { status: string }; _id: string }) => ({
+        url: `/semester-registrations/${args._id}`,
+        method: "PATCH",
+        body: args.data,
+      }),
+      invalidatesTags: ["SemesterRegistration"],
+    }),
   }),
 });
 
 export const {
   useGetAllRegisteredSemesterQuery,
   useCreateSemesterRegistrationMutation,
+  useUpdateRegisteredSemesterStatusMutation,
 } = courseManagementApi;
