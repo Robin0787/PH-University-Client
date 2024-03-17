@@ -13,7 +13,7 @@ import { bloodGroupOptions, genderOptions } from "../../../constant/global";
 import { useGetAllDepartmentQuery } from "../../../redux/features/admin/academicManagement.api";
 import { useCreateAdminMutation } from "../../../redux/features/admin/userManagement.api";
 import { UserManagementValidationSchemas } from "../../../schemas/UserManagement.schema";
-import { TIssue } from "../../../types";
+import handleAPIRequest from "../../../utils/handleAPIRequest";
 
 const CreateAdmin = () => {
   const navigate = useNavigate();
@@ -40,24 +40,7 @@ const CreateAdmin = () => {
     formData.append("data", JSON.stringify(facultyData));
     formData.append("file", data.image);
 
-    try {
-      const res = await createAdmin(formData).unwrap();
-      if (res.success) {
-        toast.success(res.message || "Admin is created successfully", {
-          id: toastId,
-        });
-        navigate("/admin/admins");
-      }
-    } catch (error: any) {
-      const errorSources = error?.data?.errorSources;
-      if (errorSources.length > 0) {
-        errorSources.map((issue: TIssue) =>
-          toast.error(issue?.message || "Something went wrong", { id: toastId })
-        );
-      } else {
-        toast.error(error?.message || "Something went wrong", { id: toastId });
-      }
-    }
+    handleAPIRequest(createAdmin, formData, toastId, navigate, "/admin/admins");
   };
 
   return (

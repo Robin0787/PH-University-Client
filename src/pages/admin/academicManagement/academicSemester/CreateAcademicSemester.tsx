@@ -8,8 +8,7 @@ import { semesterNamesForSelect } from "../../../../constant/academicSemester";
 import { monthListForSelect } from "../../../../constant/global";
 import { useCreateAcademicSemesterMutation } from "../../../../redux/features/admin/academicManagement.api";
 import { academicSemesterSchema } from "../../../../schemas/AcademicManagement.schema";
-import { TAcademicSemester } from "../../../../types/academicManagement.types";
-import { TIssue, TResponse } from "../../../../types/global.types";
+import handleAPIRequest from "../../../../utils/handleAPIRequest";
 import {
   getSemesterCodeBasedOnSemesterName,
   yearListForSelect,
@@ -24,26 +23,13 @@ const CreateAcademicSemester = () => {
     const semesterCode = getSemesterCodeBasedOnSemesterName(data.name);
     data.code = semesterCode;
 
-    try {
-      const res: TResponse<TAcademicSemester> = await createAcademicSemester(
-        data
-      ).unwrap();
-      if (res.success) {
-        toast.success(res.message || "Semester is created successfully", {
-          id: toastId,
-        });
-        navigate("/admin/academic-semesters");
-      }
-    } catch (error: any) {
-      const errorSources = error?.data?.errorSources;
-      if (errorSources.length > 0) {
-        errorSources.map((issue: TIssue) =>
-          toast.error(issue?.message || "Something went wrong", { id: toastId })
-        );
-      } else {
-        toast.error(error?.message || "Something went wrong", { id: toastId });
-      }
-    }
+    handleAPIRequest(
+      createAcademicSemester,
+      data,
+      toastId,
+      navigate,
+      "/admin/academic-semesters"
+    );
   };
 
   return (

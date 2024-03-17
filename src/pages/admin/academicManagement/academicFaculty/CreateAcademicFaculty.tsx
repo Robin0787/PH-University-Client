@@ -7,8 +7,7 @@ import PHForm from "../../../../components/form/PHForm";
 import GradientContainer from "../../../../components/gradientContainer/gradientContainer";
 import { useCreateAcademicFacultyMutation } from "../../../../redux/features/admin/academicManagement.api";
 import { academicFacultySchema } from "../../../../schemas/AcademicManagement.schema";
-import { TIssue, TResponse } from "../../../../types";
-import { TAcademicFaculty } from "../../../../types/academicManagement.types";
+import handleAPIRequest from "../../../../utils/handleAPIRequest";
 
 const CreateAcademicFaculty = () => {
   const [createAcademicFaculty] = useCreateAcademicFacultyMutation();
@@ -18,26 +17,13 @@ const CreateAcademicFaculty = () => {
   const handleCreateAcademicFaculty = async (data: any) => {
     const toastId = toast.loading("Faculty is creating");
 
-    try {
-      const res: TResponse<TAcademicFaculty> = await createAcademicFaculty(
-        data
-      ).unwrap();
-      if (res.success) {
-        toast.success(res.message || "Faculty is created successfully", {
-          id: toastId,
-        });
-        navigate("/admin/academic-faculties");
-      }
-    } catch (error: any) {
-      const errorSources = error?.data?.errorSources;
-      if (errorSources.length > 0) {
-        errorSources.map((issue: TIssue) =>
-          toast.error(issue?.message || "Something went wrong", { id: toastId })
-        );
-      } else {
-        toast.error(error?.message || "Something went wrong", { id: toastId });
-      }
-    }
+    handleAPIRequest(
+      createAcademicFaculty,
+      data,
+      toastId,
+      navigate,
+      "/admin/academic-faculties"
+    );
   };
   return (
     <div style={{ width: "100%" }}>

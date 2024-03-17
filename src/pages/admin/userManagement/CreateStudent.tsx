@@ -16,7 +16,7 @@ import {
 } from "../../../redux/features/admin/academicManagement.api";
 import { useCreateStudentMutation } from "../../../redux/features/admin/userManagement.api";
 import { UserManagementValidationSchemas } from "../../../schemas/UserManagement.schema";
-import { TIssue } from "../../../types";
+import handleAPIRequest from "../../../utils/handleAPIRequest";
 
 const CreateStudent = () => {
   const [createStudent] = useCreateStudentMutation();
@@ -48,29 +48,14 @@ const CreateStudent = () => {
     const formData = new FormData();
     formData.append("data", JSON.stringify(studentData));
     formData.append("file", data.image);
-    try {
-      const res = await createStudent(formData).unwrap();
-      if (res.success) {
-        toast.success(res.message || "Student is created successfully", {
-          id: toastId,
-        });
-        navigate("/admin/students");
-        toast.remove(toastId);
-      }
-    } catch (error: any) {
-      const errorSources = error?.data?.errorSources;
-      if (errorSources.length > 0) {
-        errorSources.map((issue: TIssue) =>
-          toast.error(
-            "(" + issue?.path + "): " + issue?.message ||
-              "Something went wrong",
-            { id: toastId }
-          )
-        );
-      } else {
-        toast.error(error?.message || "Something went wrong", { id: toastId });
-      }
-    }
+
+    handleAPIRequest(
+      createStudent,
+      formData,
+      toastId,
+      navigate,
+      "/admin/faculties"
+    );
   };
   return (
     <div style={{ width: "100%" }}>

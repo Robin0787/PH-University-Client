@@ -1,16 +1,22 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Col, Flex, Row } from "antd";
 import { BaseOptionType } from "antd/es/select";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import FormInput from "../../../components/form/FormInput";
 import PHDatePicker from "../../../components/form/PHDatePicker";
 import PHForm from "../../../components/form/PHForm";
 import PHSelect from "../../../components/form/PHSelect";
 import GradientContainer from "../../../components/gradientContainer/gradientContainer";
 import { useGetAllSemesterQuery } from "../../../redux/features/admin/academicManagement.api";
+import { useCreateSemesterRegistrationMutation } from "../../../redux/features/admin/courseManagement.api";
 import { semesterRegistrationCreateValidationSchema } from "../../../schemas/semesterRegistration.schema";
+import handleAPIRequest from "../../../utils/handleAPIRequest";
 import { semesterStatusOptions } from "./semesterRegistration.utils";
 
 const SemesterRegistration = () => {
+  const [createSemesterRegistration] = useCreateSemesterRegistrationMutation();
+  const navigate = useNavigate();
   const { data: academicSemesters } = useGetAllSemesterQuery(undefined);
   const semesterNamesForSelect = academicSemesters?.data?.map((semester) => ({
     value: semester._id,
@@ -18,7 +24,18 @@ const SemesterRegistration = () => {
   }));
 
   const handleSemesterRegistration = async (data: any) => {
-    console.log(data);
+    const toastId = toast.loading("Creating semester registration...");
+    // converting string values into number
+    data.minCredit = +data.minCredit;
+    data.maxCredit = +data.maxCredit;
+
+    handleAPIRequest(
+      createSemesterRegistration,
+      data,
+      toastId,
+      navigate,
+      "/admin/registered-semesters"
+    );
   };
 
   return (

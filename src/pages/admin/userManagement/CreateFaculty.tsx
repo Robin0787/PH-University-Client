@@ -13,7 +13,7 @@ import { bloodGroupOptions, genderOptions } from "../../../constant/global";
 import { useGetAllDepartmentQuery } from "../../../redux/features/admin/academicManagement.api";
 import { useCreateFacultyMutation } from "../../../redux/features/admin/userManagement.api";
 import { UserManagementValidationSchemas } from "../../../schemas/UserManagement.schema";
-import { TIssue } from "../../../types";
+import handleAPIRequest from "../../../utils/handleAPIRequest";
 
 const CreateFaculty = () => {
   const { data: departmentData, isLoading: isDepartmentDataLoading } =
@@ -40,28 +40,13 @@ const CreateFaculty = () => {
     formData.append("data", JSON.stringify(facultyData));
     formData.append("file", data.image);
 
-    try {
-      const res = await createFaculty(formData).unwrap();
-      if (res.success) {
-        toast.success(res.message || "Faculty is created successfully", {
-          id: toastId,
-        });
-        navigate("/admin/faculties");
-      }
-    } catch (error: any) {
-      const errorSources = error?.data?.errorSources;
-      if (errorSources.length > 0) {
-        errorSources.map((issue: TIssue) =>
-          toast.error(
-            "(" + issue?.path + "): " + issue?.message ||
-              "Something went wrong",
-            { id: toastId }
-          )
-        );
-      } else {
-        toast.error(error?.message || "Something went wrong", { id: toastId });
-      }
-    }
+    handleAPIRequest(
+      createFaculty,
+      formData,
+      toastId,
+      navigate,
+      "/admin/faculties"
+    );
   };
 
   return (
