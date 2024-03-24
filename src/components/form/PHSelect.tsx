@@ -10,6 +10,7 @@ interface TPHSelectProps {
   options: BaseOptionType[];
   disabled?: boolean;
   loading?: boolean;
+  mode?: "multiple" | "tags" | undefined;
 }
 
 const PHSelect = ({
@@ -20,6 +21,7 @@ const PHSelect = ({
   options,
   disabled,
   loading,
+  mode = undefined,
 }: TPHSelectProps) => {
   return (
     <div>
@@ -29,6 +31,7 @@ const PHSelect = ({
         render={({ field, fieldState: { error } }) => (
           <Form.Item>
             <Select
+              mode={mode}
               disabled={disabled}
               loading={loading}
               placeholder={placeholder}

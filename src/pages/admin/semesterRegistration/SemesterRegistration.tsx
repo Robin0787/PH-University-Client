@@ -48,7 +48,7 @@ const SemesterRegistration = () => {
           >
             <GradientContainer>
               <div className="form">
-                <div className="heading">Create Academic Semester</div>
+                <div className="heading">Register Semester</div>
                 <div>
                   <Row gutter={10}>
                     <Col span={24} md={{ span: 12 }}>

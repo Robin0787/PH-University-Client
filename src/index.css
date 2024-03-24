@@ -42,6 +42,14 @@ body {
   color: rgba(255, 255, 255, 0.623);
   border-radius: 10px;
 }
+.tableScrollBar::-webkit-scrollbar-track,
+.tableScrollBar::-webkit-scrollbar {
+  background: transparent;
+}
+.tableScrollBar::-webkit-scrollbar-thumb {
+  background-color: rgba(137, 137, 145, 0.685);
+  border-radius: 10px;
+}
 
 .sidebar {
   background: linear-gradient(90deg, #33069c, #2b0488) !important;

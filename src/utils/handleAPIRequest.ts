@@ -18,10 +18,11 @@ const handleAPIRequest = async (
         navigateFn(navigateTo || "");
       }
     }
+    return true;
   } catch (error: any) {
     console.log(error);
     const errorSources = error?.data?.errorSources;
-    if (errorSources.length > 0) {
+    if (errorSources?.length > 0) {
       errorSources.map((issue: TIssue) =>
         toast.error(issue?.message || "Something went wrong", { id: toastId })
       );
@@ -29,6 +30,7 @@ const handleAPIRequest = async (
       toast.error(error?.message || "Something went wrong", { id: toastId });
     }
   }
+  return false;
 };
 
 export default handleAPIRequest;

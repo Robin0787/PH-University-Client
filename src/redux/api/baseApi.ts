@@ -64,5 +64,6 @@ export const baseApi = createApi({
     "Faculties",
     "Admins",
     "SemesterRegistration",
+    "Courses",
   ],
 });

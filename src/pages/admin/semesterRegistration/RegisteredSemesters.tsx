@@ -116,7 +116,6 @@ const RegisteredSemesters = () => {
           </Tag>
         );
       },
-      width: "1%",
     },
     {
       title: <p className="tableHeading">Start Date</p>,
