@@ -114,6 +114,7 @@ const Courses = () => {
           dataSource={tableData}
           onChange={onChange}
           loading={isLoading}
+          pagination={false}
           style={{
             minHeight: "400px",
             maxHeight: "500px",
