@@ -88,6 +88,12 @@ export interface TFaculty {
   isDeleted?: boolean;
 }
 
+export interface TCourseWithFaculties {
+  _id: string;
+  course: string;
+  faculties: TFaculty[];
+}
+
 export interface TAdmin {
   _id: string;
   id: string;

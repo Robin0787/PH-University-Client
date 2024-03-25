@@ -71,7 +71,7 @@ export const getFacultyOptions = (facultyData: TFaculty[] | undefined) => {
   if (!facultyData) {
     return [];
   }
-  return facultyData.map((item) => ({
+  return facultyData?.map((item) => ({
     value: item._id,
     label: item.fullName,
   }));

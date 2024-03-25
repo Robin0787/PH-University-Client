@@ -2,10 +2,12 @@ import { Col, Flex, Row } from "antd";
 import { BaseOptionType } from "antd/es/select";
 import { useState } from "react";
 import { FieldValues } from "react-hook-form";
+import toast from "react-hot-toast";
 import FormInput from "../../../components/form/FormInput";
 import PHForm from "../../../components/form/PHForm";
 import PHSelect from "../../../components/form/PHSelect";
 import PHSelectWithWatch from "../../../components/form/PHSelectWithWatch";
+import PHTimePicker from "../../../components/form/PHTimePicker";
 import GradientContainer from "../../../components/gradientContainer/gradientContainer";
 import {
   useGetAllDepartmentQuery,
@@ -13,10 +15,12 @@ import {
   useGetAllSemesterQuery,
 } from "../../../redux/features/admin/academicManagement.api";
 import {
+  useCreateOfferedCourseMutation,
   useGetAllCoursesQuery,
   useGetAllRegisteredSemesterQuery,
+  useGetCourseFacultiesQuery,
 } from "../../../redux/features/admin/courseManagement.api";
-import { useGetAllFacultiesQuery } from "../../../redux/features/admin/userManagement.api";
+import handleAPIRequest from "../../../utils/handleAPIRequest";
 import {
   getAcademicDepartmentOptions,
   getAcademicFacultyOptions,
@@ -27,13 +31,15 @@ import {
 } from "./courseManagement.utils";
 
 const OfferCourse = () => {
+  const [courseId, setCourseId] = useState<string>("");
   const { data: registeredSemesterData } =
     useGetAllRegisteredSemesterQuery(undefined);
   const { data: academicSemesterData } = useGetAllSemesterQuery(undefined);
   const { data: academicFacultyData } = useGetAllFacultyQuery(undefined);
   const { data: academicDepartmentData } = useGetAllDepartmentQuery(undefined);
   const { data: courseData } = useGetAllCoursesQuery(undefined);
-  const { data: facultyData } = useGetAllFacultiesQuery(undefined);
+  const { data: facultyData, isLoading: fetchingFaculties } =
+    useGetCourseFacultiesQuery(courseId, { skip: !courseId });
 
   const registeredSemesterOptions = getRegisteredSemesterOptions(
     registeredSemesterData?.data
@@ -48,13 +54,17 @@ const OfferCourse = () => {
     academicDepartmentData?.data
   );
   const courseOptions = getCourseOptions(courseData?.data);
-  const facultyOptions = getFacultyOptions(facultyData?.data);
+  const facultyOptions = getFacultyOptions(facultyData?.data?.faculties);
+
+  const [createOfferedCourse] = useCreateOfferedCourseMutation();
 
   function handleOfferCourse(data: FieldValues) {
-    console.log(data);
-  }
+    const toastId = toast.loading("Creating offered course...");
+    data.section = Number(data.section);
+    data.maxCapacity = Number(data.maxCapacity);
 
-  const [id, setId] = useState<string>("");
+    handleAPIRequest(createOfferedCourse, data, toastId);
+  }
 
   return (
     <div className="responsive-width80">
@@ -71,20 +81,20 @@ const OfferCourse = () => {
                   <Row gutter={10}>
                     <Col span={24} md={{ span: 12 }}>
                       <PHSelectWithWatch
-                        onValueChange={setId}
-                        options={registeredSemesterOptions as BaseOptionType[]}
-                        name="semesterRegistration"
-                        label="Semester Registration"
-                        placeholder="Select Semester Registration"
+                        onValueChange={setCourseId}
+                        options={courseOptions as BaseOptionType[]}
+                        name="course"
+                        label="Course"
+                        placeholder="Select Course"
                       />
                     </Col>
                     <Col span={24} md={{ span: 12 }}>
                       <PHSelect
-                        options={academicSemesterOptions as BaseOptionType[]}
-                        name="academicSemester"
-                        label="Academic Semester"
-                        placeholder="Select Academic Semester"
-                        disabled={!id}
+                        options={registeredSemesterOptions as BaseOptionType[]}
+                        name="semesterRegistration"
+                        label="Semester Registration"
+                        placeholder="Select Semester Registration"
+                        disabled={!courseId}
                       />
                     </Col>
                   </Row>
@@ -95,7 +105,7 @@ const OfferCourse = () => {
                         name="academicFaculty"
                         label="Academic Faculty"
                         placeholder="Select Academic Faculty"
-                        disabled={!id}
+                        disabled={!courseId}
                       />
                     </Col>
                     <Col span={24} md={{ span: 12 }}>
@@ -104,18 +114,18 @@ const OfferCourse = () => {
                         name="academicDepartment"
                         label="Academic Department"
                         placeholder="Select Academic Department"
-                        disabled={!id}
+                        disabled={!courseId}
                       />
                     </Col>
                   </Row>
                   <Row gutter={10}>
                     <Col span={24} md={{ span: 12 }}>
                       <PHSelect
-                        options={courseOptions as BaseOptionType[]}
-                        name="course"
-                        label="Course"
-                        placeholder="Select Course"
-                        disabled={!id}
+                        options={academicSemesterOptions as BaseOptionType[]}
+                        name="academicSemester"
+                        label="Academic Semester"
+                        placeholder="Select Academic Semester"
+                        disabled={!courseId}
                       />
                     </Col>
                     <Col span={24} md={{ span: 12 }}>
@@ -124,7 +134,7 @@ const OfferCourse = () => {
                         name="faculty"
                         label="Faculty"
                         placeholder="Select Faculty"
-                        disabled={!id}
+                        disabled={!courseId || fetchingFaculties}
                       />
                     </Col>
                   </Row>
@@ -134,7 +144,7 @@ const OfferCourse = () => {
                         type="number"
                         name="maxCapacity"
                         label="Maximum Capacity"
-                        disabled={!id}
+                        disabled={!courseId}
                       />
                     </Col>
                     <Col span={24} md={{ span: 12 }}>
@@ -142,25 +152,25 @@ const OfferCourse = () => {
                         type="number"
                         name="section"
                         label="Section"
-                        disabled={!id}
+                        disabled={!courseId}
                       />
                     </Col>
                   </Row>
                   <Row gutter={10}>
                     <Col span={24} md={{ span: 12 }}>
-                      <FormInput
-                        type="text"
+                      <PHTimePicker
                         name="startTime"
                         label="Start Time"
-                        disabled={!id}
+                        placeholder="Select Start Time"
+                        disabled={!courseId}
                       />
                     </Col>
                     <Col span={24} md={{ span: 12 }}>
-                      <FormInput
-                        type="text"
+                      <PHTimePicker
                         name="endTime"
                         label="End Time"
-                        disabled={!id}
+                        placeholder="Select End Time"
+                        disabled={!courseId}
                       />
                     </Col>
                   </Row>
