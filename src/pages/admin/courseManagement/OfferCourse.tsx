@@ -1,8 +1,11 @@
 import { Col, Flex, Row } from "antd";
 import { BaseOptionType } from "antd/es/select";
+import { useState } from "react";
 import { FieldValues } from "react-hook-form";
+import FormInput from "../../../components/form/FormInput";
 import PHForm from "../../../components/form/PHForm";
 import PHSelect from "../../../components/form/PHSelect";
+import PHSelectWithWatch from "../../../components/form/PHSelectWithWatch";
 import GradientContainer from "../../../components/gradientContainer/gradientContainer";
 import {
   useGetAllDepartmentQuery,
@@ -51,6 +54,8 @@ const OfferCourse = () => {
     console.log(data);
   }
 
+  const [id, setId] = useState<string>("");
+
   return (
     <div className="responsive-width80">
       <Flex justify="center" align="center" flex={"col"}>
@@ -65,7 +70,8 @@ const OfferCourse = () => {
                 <div className="phForm">
                   <Row gutter={10}>
                     <Col span={24} md={{ span: 12 }}>
-                      <PHSelect
+                      <PHSelectWithWatch
+                        onValueChange={setId}
                         options={registeredSemesterOptions as BaseOptionType[]}
                         name="semesterRegistration"
                         label="Semester Registration"
@@ -78,6 +84,7 @@ const OfferCourse = () => {
                         name="academicSemester"
                         label="Academic Semester"
                         placeholder="Select Academic Semester"
+                        disabled={!id}
                       />
                     </Col>
                   </Row>
@@ -88,6 +95,7 @@ const OfferCourse = () => {
                         name="academicFaculty"
                         label="Academic Faculty"
                         placeholder="Select Academic Faculty"
+                        disabled={!id}
                       />
                     </Col>
                     <Col span={24} md={{ span: 12 }}>
@@ -96,6 +104,7 @@ const OfferCourse = () => {
                         name="academicDepartment"
                         label="Academic Department"
                         placeholder="Select Academic Department"
+                        disabled={!id}
                       />
                     </Col>
                   </Row>
@@ -106,6 +115,7 @@ const OfferCourse = () => {
                         name="course"
                         label="Course"
                         placeholder="Select Course"
+                        disabled={!id}
                       />
                     </Col>
                     <Col span={24} md={{ span: 12 }}>
@@ -114,6 +124,43 @@ const OfferCourse = () => {
                         name="faculty"
                         label="Faculty"
                         placeholder="Select Faculty"
+                        disabled={!id}
+                      />
+                    </Col>
+                  </Row>
+                  <Row gutter={10}>
+                    <Col span={24} md={{ span: 12 }}>
+                      <FormInput
+                        type="number"
+                        name="maxCapacity"
+                        label="Maximum Capacity"
+                        disabled={!id}
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }}>
+                      <FormInput
+                        type="number"
+                        name="section"
+                        label="Section"
+                        disabled={!id}
+                      />
+                    </Col>
+                  </Row>
+                  <Row gutter={10}>
+                    <Col span={24} md={{ span: 12 }}>
+                      <FormInput
+                        type="text"
+                        name="startTime"
+                        label="Start Time"
+                        disabled={!id}
+                      />
+                    </Col>
+                    <Col span={24} md={{ span: 12 }}>
+                      <FormInput
+                        type="text"
+                        name="endTime"
+                        label="End Time"
+                        disabled={!id}
                       />
                     </Col>
                   </Row>

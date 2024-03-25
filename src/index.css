@@ -133,10 +133,10 @@ body {
 }
 
 .input:disabled {
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.052);
   color: rgb(124, 124, 124);
   cursor: not-allowed;
-  border: 1px solid rgb(230, 230, 230);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 .input:disabled:hover {
   border: 1px solid rgb(230, 230, 230);
