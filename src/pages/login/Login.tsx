@@ -18,8 +18,8 @@ interface TDefaultValues {
 }
 
 const defaultValues: TDefaultValues = {
-  id: "A-0001",
-  password: "robin123",
+  id: "2025030002",
+  password: "student123",
 };
 
 const Login = () => {
