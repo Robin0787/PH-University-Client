@@ -32,8 +32,13 @@ import {
 
 const OfferCourse = () => {
   const [courseId, setCourseId] = useState<string>("");
-  const { data: registeredSemesterData } =
-    useGetAllRegisteredSemesterQuery(undefined);
+  const { data: registeredSemesterData } = useGetAllRegisteredSemesterQuery([
+    {
+      name: "sort",
+      value: "year",
+    },
+    { name: "status", value: "UPCOMING" },
+  ]);
   const { data: academicSemesterData } = useGetAllSemesterQuery(undefined);
   const { data: academicFacultyData } = useGetAllFacultyQuery(undefined);
   const { data: academicDepartmentData } = useGetAllDepartmentQuery(undefined);
