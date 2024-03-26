@@ -5,7 +5,6 @@ import { USER_ROLE } from "../../constant/user.roles";
 import {
   logOut,
   selectCurrentToken,
-  selectCurrentUser,
 } from "../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { adminPaths } from "../../routes/admin.routes";
@@ -13,16 +12,24 @@ import { defaultPaths } from "../../routes/default.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
 import { studentPaths } from "../../routes/student.routes";
 import { TSidebarItem } from "../../types";
-import { TUserRole } from "../../types/userRole.types";
+import { TUser } from "../../types/authSlice";
 import sidebarItemsGenerator from "../../utils/sidebarItemsGenerator";
+import verifyToken from "../../utils/verifyToken";
 
 const Sidebar = () => {
   const sidebarItems: TSidebarItem[] = [...sidebarItemsGenerator(defaultPaths)];
-  const role: TUserRole | undefined = useAppSelector(selectCurrentUser)?.role;
   const token = useAppSelector(selectCurrentToken);
   const isLoggedIn: boolean = !!token;
 
-  switch (role) {
+  let user: TUser | null;
+
+  if (token) {
+    user = verifyToken(token);
+  } else {
+    user = null;
+  }
+
+  switch (user?.role || undefined) {
     case USER_ROLE.ADMIN:
       sidebarItems.push(...sidebarItemsGenerator(adminPaths, USER_ROLE.ADMIN));
       break;
@@ -35,6 +42,8 @@ const Sidebar = () => {
       sidebarItems.push(
         ...sidebarItemsGenerator(studentPaths, USER_ROLE.STUDENT)
       );
+      break;
+    case undefined:
       break;
   }
 

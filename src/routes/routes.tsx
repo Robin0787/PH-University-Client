@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
+import { USER_ROLE } from "../constant/user.roles";
 import { routesGenerator } from "../utils/routesGenerator";
 import { adminPaths } from "./admin.routes";
 import { defaultPaths } from "./default.routes";
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute role={USER_ROLE.ADMIN}>
         <App />
       </ProtectedRoute>
     ),
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
   {
     path: "/faculty",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute role={USER_ROLE.FACULTY}>
         <App />
       </ProtectedRoute>
     ),
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
   {
     path: "/student",
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute role={USER_ROLE.STUDENT}>
         <App />
       </ProtectedRoute>
     ),
