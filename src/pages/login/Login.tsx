@@ -48,7 +48,11 @@ const Login = () => {
         const user: TUser = verifyToken<TUser>(token);
         dispatch(setUser({ user, token: token }));
         // ------------------------ //
-        navigate(`/${user?.role}/dashboard`);
+        if (res.data?.needsPasswordChange) {
+          navigate(`/change-password`);
+        } else {
+          navigate(`/${user?.role}/dashboard`);
+        }
         toast.success(res?.message, { id: toastId });
       }
     } catch (err: any) {

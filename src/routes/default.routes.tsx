@@ -1,4 +1,5 @@
 import About from "../pages/about/About";
+import ChangePassword from "../pages/changePassword/changePassword";
 import Contact from "../pages/contact/Contact";
 import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
@@ -24,6 +25,10 @@ export const defaultPaths = [
     name: "Login",
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "change-password",
+    element: <ChangePassword />,
   },
   {
     name: "Register",
