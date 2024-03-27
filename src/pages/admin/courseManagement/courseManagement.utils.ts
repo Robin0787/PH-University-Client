@@ -1,7 +1,6 @@
 import {
   TAcademicDepartment,
   TAcademicFaculty,
-  TAcademicSemester,
 } from "../../../types/academicManagement.types";
 import {
   TCourse,
@@ -18,18 +17,6 @@ export const getRegisteredSemesterOptions = (
   return registeredSemesters.map((item) => ({
     value: item._id,
     label: `${item.academicSemester?.name} - ${item.academicSemester?.year} (${item.academicSemester?.startMonth}-${item.academicSemester?.endMonth})`,
-  }));
-};
-
-export const getAcademicSemesterOptions = (
-  academicSemesters: TAcademicSemester[] | undefined
-) => {
-  if (!academicSemesters) {
-    return [];
-  }
-  return academicSemesters.map((item) => ({
-    value: item._id,
-    label: `${item?.name} - ${item?.year} (${item?.startMonth}-${item?.endMonth})`,
   }));
 };
 

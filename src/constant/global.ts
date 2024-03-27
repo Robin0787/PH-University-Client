@@ -22,6 +22,23 @@ export const monthListForSelect: BaseOptionType[] = MonthsArray.map(
   })
 );
 
+export const DaysArray: string[] = [
+  "Sat",
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+] as const;
+
+export const daysListForSelect: BaseOptionType[] = DaysArray.map(
+  (item: string) => ({
+    value: item,
+    label: item,
+  })
+);
+
 export const bloodGroups: string[] = [
   "A+",
   "A-",
