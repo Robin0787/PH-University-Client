@@ -2,6 +2,7 @@ import { TQueryParam } from "../../../pages/admin/userManagement/Students";
 import { TResponseRedux } from "../../../types";
 import {
   TCourse,
+  TOfferedCourse,
   TSemesterRegistration,
 } from "../../../types/courseManagement.types";
 import { TCourseWithFaculties } from "../../../types/userManagement.types";
@@ -110,6 +111,28 @@ export const courseManagementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["OfferedCourses"],
     }),
+    getAllOfferedCourses: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParam) =>
+            params.append(item.name, item.value as string)
+          );
+        }
+        return {
+          url: "/offered-courses",
+          method: "GET",
+          params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TOfferedCourse[]>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+      providesTags: ["Courses"],
+    }),
   }),
 });
 
@@ -122,4 +145,5 @@ export const {
   useAssignFacultiesToCourseMutation,
   useGetCourseFacultiesQuery,
   useCreateOfferedCourseMutation,
+  useGetAllOfferedCoursesQuery,
 } = courseManagementApi;

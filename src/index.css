@@ -153,6 +153,7 @@ body {
 .tableHeading {
   font-size: 18px;
   font-weight: bold;
+  text-wrap: nowrap;
 }
 
 .container {
