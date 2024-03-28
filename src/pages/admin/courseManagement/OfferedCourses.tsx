@@ -1,4 +1,4 @@
-import { Flex, Pagination, Table, TableColumnsType, TableProps } from "antd";
+import { Flex, Pagination, Table, TableColumnsType } from "antd";
 import { Key, useState } from "react";
 import GradientContainer from "../../../components/gradientContainer/gradientContainer";
 import { useGetAllOfferedCoursesQuery } from "../../../redux/features/admin/courseManagement.api";
@@ -63,7 +63,7 @@ const OfferedCourse = () => {
   const [page, setPage] = useState<number>(1);
   const [params] = useState<TQueryParam[]>([]);
   const { data, isLoading } = useGetAllOfferedCoursesQuery([
-    { name: "limit", value: 5 },
+    { name: "limit", value: 10 },
     { name: "page", value: page },
     ...params,
   ]);
@@ -87,17 +87,6 @@ const OfferedCourse = () => {
     };
   });
 
-  const onChange: TableProps<TTableData>["onChange"] = (
-    _pagination,
-    filters,
-    _sorter,
-    extra
-  ) => {
-    if (extra.action === "filter") {
-      console.log(filters);
-    }
-  };
-
   return (
     <GradientContainer>
       <div style={{ padding: "20px 0" }}>
@@ -107,7 +96,6 @@ const OfferedCourse = () => {
         <Table
           columns={columns}
           dataSource={tableData}
-          onChange={onChange}
           loading={isLoading}
           pagination={false}
           style={{
