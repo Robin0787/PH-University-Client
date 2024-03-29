@@ -1,44 +1,27 @@
 import { Button, Col, Row } from "antd";
 import toast from "react-hot-toast";
 import GradientContainer from "../../../components/gradientContainer/gradientContainer";
-import { useGetMyOfferedCoursesQuery } from "../../../redux/features/student/courseManagement.api";
-
-interface TModifiedItem {
-  courseTitle: string;
-  sections: {
-    section: number;
-    _id: string;
-    startTime: string;
-    endTime: string;
-    days: string[];
-  }[];
-}
+import {
+  useEnrollToCourseMutation,
+  useGetMyOfferedCoursesQuery,
+} from "../../../redux/features/student/courseManagement.api";
+import handleAPIRequest from "../../../utils/handleAPIRequest";
+import modifiedOfferedCourseData from "../../../utils/modifiedOfferedCourseData";
 
 const MyOfferedCourses = () => {
   const { data: myOfferedCoursesData } = useGetMyOfferedCoursesQuery(undefined);
+  const [enrollToCourse] = useEnrollToCourseMutation();
 
-  const singleObject = myOfferedCoursesData?.data?.reduce((acc, item) => {
-    const key = item.course.title;
-    acc[key] = acc[key] || {
-      courseTitle: key,
-      sections: [],
+  const modifiedData = modifiedOfferedCourseData(myOfferedCoursesData?.data);
+
+  const handleEnrollCourse = (offeredCourse: string) => {
+    const toastId = toast.loading("Enrolling to the course...");
+
+    const payload = {
+      offeredCourse,
     };
 
-    acc[key].sections.push({
-      section: item.section,
-      _id: item._id,
-      startTime: item.startTime,
-      endTime: item.endTime,
-      days: item.days,
-    });
-
-    return acc;
-  }, {});
-
-  const modifiedData: TModifiedItem[] = Object.values(singleObject || {});
-
-  const handleEnrollCourse = (courseId: string) => {
-    toast.success(courseId);
+    handleAPIRequest(enrollToCourse, payload, toastId);
   };
 
   return (
@@ -50,7 +33,7 @@ const MyOfferedCourses = () => {
         overflowY: "auto",
       }}
     >
-      {modifiedData.length > 0 ? (
+      { modifiedData.length > 0 ? (
         <>
           {modifiedData.map((item, key) => (
             <Row
