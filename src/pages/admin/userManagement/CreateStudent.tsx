@@ -54,7 +54,7 @@ const CreateStudent = () => {
       formData,
       toastId,
       navigate,
-      "/admin/faculties"
+      "/admin/students"
     );
   };
   return (

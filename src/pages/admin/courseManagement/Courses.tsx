@@ -76,6 +76,7 @@ const Courses = () => {
   const [page, setPage] = useState<number>(1);
   const [params] = useState<TQueryParam[]>([]);
   const { data, isLoading } = useGetAllCoursesQuery([
+    { name: "sort", value: "code" },
     { name: "limit", value: 5 },
     { name: "page", value: page },
     ...params,

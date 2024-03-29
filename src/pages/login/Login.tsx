@@ -8,6 +8,7 @@ import GradientContainer from "../../components/gradientContainer/gradientContai
 import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { useAppDispatch } from "../../redux/hooks";
+import { AppDispatch } from "../../redux/store";
 import { TUser } from "../../types/authSlice";
 import { TUserInfo } from "../../types/baseApi.types";
 import verifyToken from "../../utils/verifyToken";
@@ -18,14 +19,14 @@ interface TDefaultValues {
 }
 
 const defaultValues: TDefaultValues = {
-  id: "2025030002",
+  id: "2025010001",
   password: "student123",
 };
 
 const Login = () => {
   const [login] = useLoginMutation();
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
 
   async function handleLogin(data: any) {
     if (!data.id) {

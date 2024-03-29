@@ -164,13 +164,27 @@ body {
   overflow-y: auto;
 }
 
+.courseTitle {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: left;
+  display: block;
+  margin-bottom: 15px;
+}
+
 .responsive-width80 {
+  width: 100%;
+}
+.responsive-width90 {
   width: 100%;
 }
 
 @media screen and (min-width: 1000px) {
   .responsive-width80 {
     width: 80%;
+  }
+  .responsive-width90 {
+    width: 90%;
   }
 }
 

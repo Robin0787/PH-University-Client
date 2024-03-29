@@ -41,10 +41,13 @@ const OfferCourse = () => {
       value: "year",
     },
     { name: "status", value: "UPCOMING" },
+    { name: "status", value: "ONGOING" },
   ]);
   const { data: academicFacultyData } = useGetAllFacultyQuery(undefined);
   const { data: academicDepartmentData } = useGetAllDepartmentQuery(undefined);
-  const { data: courseData } = useGetAllCoursesQuery(undefined);
+  const { data: courseData } = useGetAllCoursesQuery([
+    { name: "sort", value: "code" },
+  ]);
   const { data: facultyData, isLoading: fetchingFaculties } =
     useGetCourseFacultiesQuery(courseId, { skip: !courseId });
 

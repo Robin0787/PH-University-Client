@@ -131,7 +131,7 @@ export const courseManagementApi = baseApi.injectEndpoints({
           meta: response.meta,
         };
       },
-      providesTags: ["Courses"],
+      providesTags: ["OfferedCourses"],
     }),
   }),
 });
