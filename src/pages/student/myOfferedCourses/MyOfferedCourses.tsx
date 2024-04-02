@@ -33,7 +33,7 @@ const MyOfferedCourses = () => {
         overflowY: "auto",
       }}
     >
-      { modifiedData.length > 0 ? (
+      {modifiedData.length > 0 ? (
         <>
           {modifiedData.map((item, key) => (
             <Row
@@ -84,7 +84,16 @@ const MyOfferedCourses = () => {
           ))}
         </>
       ) : (
-        ""
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <h1>No courses available!</h1>
+        </div>
       )}
     </div>
   );

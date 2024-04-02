@@ -1,5 +1,9 @@
 import { TOfferedCourse } from "../types/courseManagement.types";
 
+interface TCourse {
+  [index: string]: any;
+}
+
 interface TModifiedItem {
   courseTitle: string;
   sections: {
@@ -17,7 +21,7 @@ const modifiedOfferedCourseData = (
   if (!data) {
     return [];
   }
-  const singleObject = data?.reduce((acc, item) => {
+  const singleObject = data?.reduce((acc: TCourse, item) => {
     const key = item.course.title;
     acc[key] = acc[key] || {
       courseTitle: key,
