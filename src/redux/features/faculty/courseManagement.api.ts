@@ -1,5 +1,6 @@
 import { TQueryParam } from "../../../pages/admin/userManagement/Students";
 import { TResponseRedux } from "../../../types";
+import { MyEnrolledCourse } from "../../../types/facultyCourses.types";
 import { baseApi } from "../../api/baseApi";
 
 export const courseManagementApi = baseApi.injectEndpoints({
@@ -8,9 +9,11 @@ export const courseManagementApi = baseApi.injectEndpoints({
       query: (args) => {
         const params = new URLSearchParams();
         if (args) {
-          args.forEach((item: TQueryParam) =>
-            params.append(item.name, item.value as string)
-          );
+          args.forEach((item: TQueryParam) => {
+            if (item.value) {
+              params.append(item.name, item.value as string);
+            }
+          });
         }
         return {
           url: "/enrolled-courses",
@@ -18,7 +21,7 @@ export const courseManagementApi = baseApi.injectEndpoints({
           params,
         };
       },
-      transformResponse: (response: TResponseRedux<any>) => {
+      transformResponse: (response: TResponseRedux<MyEnrolledCourse[]>) => {
         return {
           data: response.data,
           meta: response.meta,

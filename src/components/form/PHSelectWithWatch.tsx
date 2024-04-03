@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 
 interface TPHSelectProps {
-  label: string;
+  label?: string;
   name: string;
   placeholder?: string;
   defaultValue?: any;

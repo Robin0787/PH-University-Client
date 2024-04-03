@@ -1,13 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Button,
-  Flex,
-  Modal,
-  Pagination,
-  Table,
-  TableColumnsType,
-  TableProps,
-} from "antd";
+import { Button, Flex, Modal, Pagination, Table, TableColumnsType } from "antd";
 import { BaseOptionType } from "antd/es/select";
 import { Key, useState } from "react";
 import { FieldValues } from "react-hook-form";
@@ -93,17 +85,6 @@ const Courses = () => {
     credits,
   }));
 
-  const onChange: TableProps<TTableData>["onChange"] = (
-    _pagination,
-    filters,
-    _sorter,
-    extra
-  ) => {
-    if (extra.action === "filter") {
-      console.log(filters);
-    }
-  };
-
   return (
     <GradientContainer>
       <div style={{ padding: "20px 0" }}>
@@ -113,7 +94,6 @@ const Courses = () => {
         <Table
           columns={columns}
           dataSource={tableData}
-          onChange={onChange}
           loading={isLoading}
           pagination={false}
           style={{

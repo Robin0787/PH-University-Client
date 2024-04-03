@@ -3,7 +3,7 @@ import { BaseOptionType } from "antd/es/select";
 import { Controller } from "react-hook-form";
 
 interface TPHSelectProps {
-  label: string;
+  label?: string;
   name: string;
   placeholder?: string;
   defaultValue?: any;
